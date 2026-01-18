@@ -5,298 +5,331 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jucarie T1</title>
   <style>
-    :root {
-      --bg: #0b0f19;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --text: #f3f5f7;
-      --accent: #8ab4f8;
-      --button: linear-gradient(135deg, #0072ff, #00c6ff);
-      --button-hover: linear-gradient(135deg, #00b4db, #0083b0);
-      --glass-blur: blur(20px);
+    :root{
+      --bg1:#050913;
+      --bg2:#07162c;
+      --ice:#7dd3fc;
+      --ice2:#a5f3fc;
+      --text:#eef7ff;
+      --muted:rgba(238,247,255,.7);
+      --card:rgba(255,255,255,.06);
+      --border:rgba(125,211,252,.22);
+      --button:linear-gradient(135deg,#7dd3fc,#3b82f6);
+      --button-hover:linear-gradient(135deg,#a5f3fc,#2563eb);
+      --blur:blur(18px);
+      --shadow:0 14px 40px rgba(0,0,0,.45);
     }
-
-    * {
-      box-sizing: border-box;
-      transition: all 0.25s ease;
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      padding:40px 20px;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:50px;
+      font-family:Inter,Poppins,system-ui;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(125,211,252,.15), transparent 60%),
+        radial-gradient(900px 500px at 80% 15%, rgba(59,130,246,.14), transparent 55%),
+        linear-gradient(180deg,var(--bg2),var(--bg1));
+      overflow-x:hidden;
+      position:relative;
+      isolation:isolate;
     }
-
-    body {
-      background: radial-gradient(circle at top left, #111827, #0b0f19);
-      color: var(--text);
-      font-family: "Inter", "Poppins", sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 50px;
-      min-height: 100vh;
+    .snow{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.9) 1.2px, transparent 1.4px),
+        radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1.3px),
+        radial-gradient(circle, rgba(255,255,255,.4) .8px, transparent 1.2px);
+      background-size:180px 180px,260px 260px,340px 340px;
+      animation:snowFall 18s linear infinite;
     }
-
-    h1 {
-      font-size: 2.5rem;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-align: center;
-      font-weight: 700;
-      letter-spacing: 1px;
+    @keyframes snowFall{
+      from{background-position:0 -300px,0 -600px,0 -900px;}
+      to{background-position:0 1200px,0 1200px,0 1200px;}
     }
-
-    .section {
-      backdrop-filter: var(--glass-blur);
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 35px;
-      width: 95%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 25px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    h1{
+      font-size:2.6rem;
+      font-weight:800;
+      letter-spacing:1px;
+      text-align:center;
+      margin:0;
+      background:linear-gradient(90deg,var(--ice2),var(--ice),#60a5fa);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 22px rgba(125,211,252,.2);
     }
-
-    h2 {
-      font-size: 1.6rem;
-      color: var(--accent);
-      margin-bottom: 10px;
-      letter-spacing: 0.5px;
-      text-shadow: 0 0 10px rgba(138, 180, 248, 0.3);
+    .section{
+      width:95%;
+      max-width:1200px;
+      padding:35px;
+      border-radius:22px;
+      background:var(--card);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      backdrop-filter:var(--blur);
+      -webkit-backdrop-filter:var(--blur);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:25px;
     }
-
-    .msg-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+    h2{
+      margin:0;
+      font-size:1.6rem;
+      color:var(--ice2);
+      text-shadow:0 0 12px rgba(125,211,252,.25);
     }
-
-    .msg {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 14px;
-      padding: 18px;
-      width: 320px;
-      white-space: pre-wrap;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 0.5s forwards;
+    .msg-row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:20px;
     }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .msg{
+      width:320px;
+      padding:18px;
+      border-radius:16px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--border);
+      box-shadow:0 8px 24px rgba(0,0,0,.35);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      opacity:0;
+      transform:translateY(10px);
+      animation:fadeUp .5s forwards;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
-
-    .msg span {
-      flex: 1;
-      font-size: 0.95rem;
-      line-height: 1.4;
-      margin-right: 10px;
+    @keyframes fadeUp{
+      to{ opacity:1; transform:translateY(0); }
     }
-
-    .msg button {
-      background: var(--button);
-      border: none;
-      color: #fff;
-      padding: 7px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+    .msg.fade-out{
+      opacity:0;
+      transform:translateY(-12px);
     }
-
-    .msg button:hover {
-      background: var(--button-hover);
-      transform: scale(1.05);
+    .msg span{
+      flex:1;
+      font-size:.95rem;
+      line-height:1.45;
+      white-space:pre-wrap;
     }
-
-    .reroll {
-      background: var(--button);
-      border: none;
-      color: white;
-      padding: 12px 28px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px rgba(0, 114, 255, 0.3);
+    .msg button{
+      border:none;
+      color:#061427;
+      padding:7px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:.9rem;
+      background:var(--button);
+      box-shadow:0 10px 24px rgba(59,130,246,.22);
     }
-
-    .reroll:hover {
-      background: var(--button-hover);
-      transform: scale(1.05);
-      box-shadow: 0 6px 25px rgba(0, 150, 255, 0.4);
+    .msg button:hover{
+      background:var(--button-hover);
+      transform:scale(1.05);
     }
-
-    footer {
-      opacity: 0.7;
-      font-size: 0.9rem;
-      color: #999;
-      text-align: center;
-      margin-top: auto;
+    .reroll{
+      border:none;
+      color:#061427;
+      padding:12px 28px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:1rem;
+      background:var(--button);
+      box-shadow:0 16px 40px rgba(59,130,246,.22);
+    }
+    .reroll:hover{
+      background:var(--button-hover);
+      transform:scale(1.05);
+    }
+    footer{
+      margin-top:auto;
+      opacity:.75;
+      font-size:.95rem;
+      color:var(--muted);
     }
   </style>
 </head>
 <body>
+  <div class="snow"></div>
   <h1>Jucarie T1</h1>
-
-  <div class="section" id="bundles">
+  <div class="section">
     <h2>Bundles</h2>
     <div class="msg-row" id="bundleList"></div>
     <button class="reroll" id="rerollBundles">🎲 Reroll Bundles</button>
   </div>
-
-  <div class="section" id="mass">
+  <div class="section">
     <h2>Mass Messages</h2>
     <div class="msg-row" id="massList"></div>
     <button class="reroll" id="rerollMass">🎲 Reroll Mass</button>
   </div>
-
-  <footer><3</footer>
-
+  <footer>&lt;3</footer>
   <script>
     const bundlePool = [
       "I'm waiting for you my love !💕💕💕 What are you waiting for?🥵🥵🥵🥵 All I want is for you to be in my bed right now🥵🥵🥵 ! I want to feel your kisses on my body and make me feel like the most loved woman in the world💗",
-	  "Can you resist to that temptation?😈🙈 This bundle is for you if you want to see me playful and unfiltered, let your curiosity lead the way. 😈",
-	  "Just sit down and watch me strip for you🥵🥵 Play with your cock and look me in the eyes😈😏😏 Tell me how much you wanna fuck me and I might let you 🙈🙈❤",
-	  "HEY YOU! 😈😈😈😈 YES YOU! 🥵🥵🥵🥵 I’m leaving this message here for when you start missing me 😏💋",
-	  "Premium bundle for today!!!!!!!!!!!!!! 💎💎💎 And to be honest, there is no need for any explanation, just open and feel how naughty I can be, for the best price ever ❤️❤️❤️❤️ I am waiting for your next move ❤️",
-	  "I know that you want to discover more of me, which is why I send you this beauty, so you can take care of her, here is all you need to see every inch of my body, just open it and let me do the rest 😈❤️❤️",
-	  "COME HERE 😈😈😈 I have some new content for you discounted, make sure you're taking the cake while is still hot, I want you to be updated with everything I do, so let me make you happy ❤️❤️❤️",
-	  "I thought of wearing something red, do I look good in it? Or do I look even better naked?😏😏😏 How about you give me your opinion, my pussy its already so wet and she need your attention😈😈😈😈",
-      "Hmmm😏😏 I think that we should have some fun tonight, and I have something for you so we can start it in the most beautiful way, seeing me in my fancy outfit stripping for you will leave you speechless, so why to waste time?😝 Open it and let me dive you through something you never felt before👅👅"
-	  "Do you like how my ass looks in jeans?😏😏😏 Or do you like it better only when I have my panties on?😈😈😈😈",
-	  "The way you look at me turns me on so much, I love it, I crave it every time and I can't wait for you to look at me once again through this bundle 🥵🥵🥵😻😻",
-	  "There's nothing more that I love than a good fuck, bending over and just feeling you get inside of me 😈🥵🥵🥵🥵🥵 Are you in for that? Daddy!",
-	  "I've been to the gym today and when I got up I noticed I left some sweat spots and it matches this fat ass and my pussy lips🙈🙈🙈😩",
-	  "I can't believe how hard my legs are shaking right now 🙊🙊 I've accumulated all this tension between my thighs and I finally let her go 💦 would you make me even wetter ?🥵🥵",
-	  "Do you know how bad I want to give you everything? 😘 My bundle is packed with all my best and naughtiest moments, made just for your eyes. Trust me, it’s going to leave you breathless. Ready to see all of me? 💦💋",
-	  "I have this bundle right here, and I have a challenge for you 😈😈😈 if you open it, and it won't make you cum in 5 minutes, I will give you something for free 💋💋 Are you ready to start this beautiful game? ❤️",
-	  "The sun ☀️ is shining and my pussy is dripping wet 💦💦💦, there is no way you're going to miss a view like this I know for a fact that this will make your day even brighter than the sun 💋💋💋💋💋💋",
-	  "I’ve wrapped up my naughtiest scenes in one sinful little bundle… It’s moans, messy fantasies, and moments I probably shouldn’t have filmed 😈 Think you can handle all of me at once?",
-	  "SQUIRTING TIME😈😈💦💦 I feel that you're a bit tired, you deserve a shower, but not an usual one, a tsunami😈😈 You need a big load of water, but guess what, my pussy will love to take care of every inch of your body, so you better undress yourself and lay in bed, so I can squirt my soul and leave my juices on you🤤🤤 And then I will make you a massage after all that💦 A wet massage🥵"
-	  "Hmmmm, now is time for something more😈🫦 I am in the mood for some rodeo time👉👌 And to be honest, seeing and feeling my ass riding you will reduce your cumming time at a level of seconds💦 And don't forget to spank me please, I love it, I want you to make my cheeks fully red🍑🍑🔥 Let's start the rodeo😈😈"
-	  "Right now I want us to do something different💦🔞I want you to lay on your back and to let me suck your dick in a merciless way, I want your body to feel something it never felt before, through my mouth, which will go crazy when I will be taking your dick deep in my throat🤤🤤 Let me show you what I am capable of😈"
+      "Can you resist to that temptation?😈🙈 This bundle is for you if you want to see me playful and unfiltered, let your curiosity lead the way. 😈",
+      "Just sit down and watch me strip for you🥵🥵 Play with your cock and look me in the eyes😈😏😏 Tell me how much you wanna fuck me and I might let you 🙈🙈❤",
+      "HEY YOU! 😈😈😈😈 YES YOU! 🥵🥵🥵🥵 I’m leaving this message here for when you start missing me 😏💋",
+      "Premium bundle for today!!!!!!!!!!!!!! 💎💎💎 And to be honest, there is no need for any explanation, just open and feel how naughty I can be, for the best price ever ❤️❤️❤️❤️ I am waiting for your next move ❤️",
+      "I know that you want to discover more of me, which is why I send you this beauty, so you can take care of her, here is all you need to see every inch of my body, just open it and let me do the rest 😈❤️❤️",
+      "COME HERE 😈😈😈 I have some new content for you discounted, make sure you're taking the cake while is still hot, I want you to be updated with everything I do, so let me make you happy ❤️❤️❤️",
+      "I thought of wearing something red, do I look good in it? Or do I look even better naked?😏😏😏 How about you give me your opinion, my pussy its already so wet and she need your attention😈😈😈😈",
+      "Hmmm😏😏 I think that we should have some fun tonight, and I have something for you so we can start it in the most beautiful way, seeing me in my fancy outfit stripping for you will leave you speechless, so why to waste time?😝 Open it and let me dive you through something you never felt before👅👅",
+      "Do you like how my ass looks in jeans?😏😏😏 Or do you like it better only when I have my panties on?😈😈😈😈",
+      "The way you look at me turns me on so much, I love it, I crave it every time and I can't wait for you to look at me once again through this bundle 🥵🥵🥵😻😻",
+      "There's nothing more that I love than a good fuck, bending over and just feeling you get inside of me 😈🥵🥵🥵🥵🥵 Are you in for that? Daddy!",
+      "I've been to the gym today and when I got up I noticed I left some sweat spots and it matches this fat ass and my pussy lips🙈🙈🙈😩",
+      "I can't believe how hard my legs are shaking right now 🙊🙊 I've accumulated all this tension between my thighs and I finally let her go 💦 would you make me even wetter ?🥵🥵",
+      "Do you know how bad I want to give you everything? 😘 My bundle is packed with all my best and naughtiest moments, made just for your eyes. Trust me, it’s going to leave you breathless. Ready to see all of me? 💦💋",
+      "I have this bundle right here, and I have a challenge for you 😈😈😈 if you open it, and it won't make you cum in 5 minutes, I will give you something for free 💋💋 Are you ready to start this beautiful game? ❤️",
+      "The sun ☀️ is shining and my pussy is dripping wet 💦💦💦, there is no way you're going to miss a view like this I know for a fact that this will make your day even brighter than the sun 💋💋💋💋💋💋",
+      "I’ve wrapped up my naughtiest scenes in one sinful little bundle… It’s moans, messy fantasies, and moments I probably shouldn’t have filmed 😈 Think you can handle all of me at once?",
+      "SQUIRTING TIME😈😈💦💦 I feel that you're a bit tired, you deserve a shower, but not an usual one, a tsunami😈😈 You need a big load of water, but guess what, my pussy will love to take care of every inch of your body, so you better undress yourself and lay in bed, so I can squirt my soul and leave my juices on you🤤🤤 And then I will make you a massage after all that💦 A wet massage🥵",
+      "Hmmmm, now is time for something more😈🫦 I am in the mood for some rodeo time👉👌 And to be honest, seeing and feeling my ass riding you will reduce your cumming time at a level of seconds💦 And don't forget to spank me please, I love it, I want you to make my cheeks fully red🍑🍑🔥 Let's start the rodeo😈😈",
+      "Right now I want us to do something different💦🔞I want you to lay on your back and to let me suck your dick in a merciless way, I want your body to feel something it never felt before, through my mouth, which will go crazy when I will be taking your dick deep in my throat🤤🤤 Let me show you what I am capable of😈",
       "This bundle? It shows off every angle, every inch, every gasp… I let the camera see everything. Don’t say I didn’t warn you 🥵",
-	  "Just uploaded a filthy little package full of temptation. My lips, my hips, and everything in between… ready to ruin your self-control. Open at your own risk 😘",
+      "Just uploaded a filthy little package full of temptation. My lips, my hips, and everything in between… ready to ruin your self-control. Open at your own risk 😘",
       "Want to see me dripping, squirming, begging? It’s all in here… my hottest clips bundled just for you. Press play and don’t blame me if you can’t stop watching 🔥",
-	  "I want you to grab my boobs like how I am grabbing them in this bundle for you, I want you to have all the glucose in your body from them by sucking them like crazy 😝😝😝😝😝",
-	  "I have a generous body and a huge appetite for some fun right now, and the best thing is that I know that I don't miss 🤭🤭💋 And I packed all my skills inside this bundle destined for you to see it and feel it 💋💋🫦 Are you ready? 😈",
-	  "I am looking you deep in the eyes and I am asking myself how far can you go with me? 😏💋 I want you to feel freely with me, and admire me through this bundle that I've prepared for you, let's play this game and see where it leads us 😋❤️❤️",
-		
-	];
-	 
+      "I want you to grab my boobs like how I am grabbing them in this bundle for you, I want you to have all the glucose in your body from them by sucking them like crazy 😝😝😝😝😝",
+      "I have a generous body and a huge appetite for some fun right now, and the best thing is that I know that I don't miss 🤭🤭💋 And I packed all my skills inside this bundle destined for you to see it and feel it 💋💋🫦 Are you ready? 😈",
+      "I am looking you deep in the eyes and I am asking myself how far can you go with me? 😏💋 I want you to feel freely with me, and admire me through this bundle that I've prepared for you, let's play this game and see where it leads us 😋❤️❤️"
+    ];
 
     const massPool = [
       "I'm just here, alone feeling naughty, are you too?💋",
-	  "Can you resist to that temptation?😈🙈 This bundle is for you if you want to see me playful and unfiltered, let your curiosity lead the way.😈",
-	  "Are you ready?😈 I want you to lay on your back and watch me how I'm doing a strip for you, how I'm taking off my panties and my bra, looking into your eyes... What should I do next?🤭",
-	  "Just sit down and watch me strip for you🥵🥵 Play with your cock and look me in the eyes😈😏😏 Tell me how much you wanna fuck me and I might let you🙈🙈❤",
-	  "I have something for you if you take a look at the bundle that I've sent you, wanna miss on my gift?😏",
-	  "Don't you want to have fun with me??? 🙈🙈 I am skilled by the way!!😂",
-	  "What is something you always wanted to see me doing? 😈 Don't be shyyy💋💋",
-	  "Have you ever had a custom video made by a hot ass blonde?😝",
-	  "STOP! I'm horny😈😈😈😈😈😈",
-	  "What kind of video you'd open right now?😏💋🔞",
-	  "Aren't you curious to see how I am playing with my pussy on that video?😏😏😏",
-	  "Why don't you open my bundle honey? Because I have a free gift waiting for you if you do it ❤️❤️",
-	  "Do you like sexting? I miss having someone to pleasure me😍😍😍🥵🥵🥵",
-	  "What would you do to me if I was there with you?🤭🤭🤭",
-	  "I'm feeling really horny🤫🤭",
-	  "Let's have some fun🥵",
-	  "Wanna spice things up?😈",
-	  "Are you ready to play with me?😋",
-	  "Stooop what are you doing and give me some attention🙈🤭",
-	  "I'm just here, alone feeling naughty, are you too?💋",
-	  "If I told you to fuck me from behind, how hard would you go?",
-	  "What is something you always wanted to see me doingggg? 😏 Maybe I will make it become real for you💋",,,
-	  "Don't you like the bundle I sent you? What about if I give you a free gift if you open it?❤️💋",
-	  "Let's try this, you will have one of my newest videos, you just choose the category, and I will make you a discount on it ❤️ Deal?👅🔞",
-	  "Wanna see how naughty I can get? 😈😈😈😏",
-	  "Are you feeling hungry? I can cook you for dinner but you'll have to keep me as the desert after😏😏😏😏",
-	  "I love it when you fuck me deep, but how deep can you reach?😈😈",
-	  "Hey, wanna play with me a bit? I promise I don't bite, maybe🤭🤭😋",
-	  "I’m wearing something I am sure you'd love on me right now🤭",
-	  "Let's spoil each other's cravings my love are you ready to have some fun with me?😈😈😈",
-	  "How many times can you cum if im stroking your cock?😏😏",
+      "Can you resist to that temptation?😈🙈 This bundle is for you if you want to see me playful and unfiltered, let your curiosity lead the way.😈",
+      "Are you ready?😈 I want you to lay on your back and watch me how I'm doing a strip for you, how I'm taking off my panties and my bra, looking into your eyes... What should I do next?🤭",
+      "Just sit down and watch me strip for you🥵🥵 Play with your cock and look me in the eyes😈😏😏 Tell me how much you wanna fuck me and I might let you🙈🙈❤",
+      "I have something for you if you take a look at the bundle that I've sent you, wanna miss on my gift?",
+      "Don't you want to have fun with me??? 🙈🙈 I am skilled by the way!!😂",
+      "What is something you always wanted to see me doing? 😈 Don't be shyyy💋💋",
+      "Have you ever had a custom video made by a hot ass blonde?😝",
+      "STOP! I'm horny😈😈😈😈😈😈",
+      "What kind of video you'd open right now?😏💋🔞",
+      "Aren't you curious to see how I am playing with my pussy on that video?😏😏😏",
+      "Why don't you open my bundle honey? Because I have a free gift waiting for you if you do it ❤️❤️",
+      "Do you like sexting? I miss having someone to pleasure me😍😍😍🥵🥵🥵",
+      "What would you do to me if I was there with you?🤭🤭🤭",
+      "I'm feeling really horny🤫🤭",
+      "Let's have some fun🥵",
+      "Wanna spice things up?😈",
+      "Are you ready to play with me?😋",
+      "Stooop what are you doing and give me some attention🙈🤭",
+      "I'm just here, alone feeling naughty, are you too?💋",
+      "If I told you to fuck me from behind, how hard would you go?",
+      "What is something you always wanted to see me doingggg? 😏 Maybe I will make it become real for you💋",
+      "Don't you like the bundle I sent you? What about if I give you a free gift if you open it?❤️💋",
+      "Let's try this, you will have one of my newest videos, you just choose the category, and I will make you a discount on it ❤️ Deal?👅🔞",
+      "Wanna see how naughty I can get? 😈😈😈😏",
+      "Are you feeling hungry? I can cook you for dinner but you'll have to keep me as the desert after😏😏😏😏",
+      "I love it when you fuck me deep, but how deep can you reach?😈😈",
+      "Hey, wanna play with me a bit? I promise I don't bite, maybe🤭🤭😋",
+      "I’m wearing something I am sure you'd love on me right now🤭",
+      "Let's spoil each other's cravings my love are you ready to have some fun with me?😈😈😈",
+      "How many times can you cum if im stroking your cock?😏😏",
       "What's the first thing u'd do if I spread my legs in front of ur cock?😈",
-	  "Oops baby I think my tits are getting hard can u warm it up with ur tongue?🥵🥵🥵",
-	  "I’m going to drain every last drop of cum out of you, are you down or are you to scared?😈😈",
-	  "I've been thinking and I dying to know what's your cock craving right now?😏",
-	  "If we were in a hot tub right now, what would be the first thing you'd do?😏😏",
-	  "What's your favorite type of foreplay?🥵🥵",
-	  "I think you should treat yourself with a peek at the best body you've seen in a while😏",
-	  "I've been feelinge extra naughty today, can you give me a helping hand?😈",
-	  "My dildo is with me, what should I do with it? 😈",
+      "Oops baby I think my tits are getting hard can u warm it up with ur tongue?🥵🥵🥵",
+      "I’m going to drain every last drop of cum out of you, are you down or are you to scared?😈😈",
+      "I've been thinking and I dying to know what's your cock craving right now?😏",
+      "If we were in a hot tub right now, what would be the first thing you'd do?😏😏",
+      "What's your favorite type of foreplay?🥵🥵",
+      "I think you should treat yourself with a peek at the best body you've seen in a while😏",
+      "I've been feelinge extra naughty today, can you give me a helping hand?😈",
+      "My dildo is with me, what should I do with it? 😈",
       "This is what I’d do if you were here. No talking. Just moans.",
-	  "It started as a tease… ended with me shaking and soaked 😈 Open this",
-	  "POV: I’m dripping and on my knees just for you 🥵",
-	  "This is the dirtiest thing I’ve filmed so far… Wanna see what I did?",
-	  "If you knew what I was thinking about doing to you right now… you’d be on your way already.",
-	  "My hands are wandering… want to guess where they’ll end up?",
-	  "I don’t need dinner. I just want to taste you tonight😈😈😈",
-	  "What instantly turns u on?😈😈😈",
-	  "Heeeeey, wanna play with me a bit?🤭🤭",
-	  "I am feeling soo naughty right now 😈😈 can you help me??",
-	  "What would you do if you were minding your business around the house I and begun sucking your dick randomly?🤭🤭",
-	  "I want to play with my wet tight kitty right now I will need your help to cum🥵🥵🥵",
+      "It started as a tease… ended with me shaking and soaked 😈 Open this",
+      "POV: I’m dripping and on my knees just for you 🥵",
+      "This is the dirtiest thing I’ve filmed so far… Wanna see what I did?",
+      "If you knew what I was thinking about doing to you right now… you’d be on your way already.",
+      "My hands are wandering… want to guess where they’ll end up?",
+      "I don’t need dinner. I just want to taste you tonight😈😈😈",
+      "What instantly turns u on?😈😈😈",
+      "Heeeeey, wanna play with me a bit?🤭🤭",
+      "I am feeling soo naughty right now 😈😈 can you help me??",
+      "What would you do if you were minding your business around the house I and begun sucking your dick randomly?🤭🤭",
+      "I want to play with my wet tight kitty right now I will need your help to cum🥵🥵🥵",
       "Let's spoil each other's sensual cravings babe ready to have some fun?😈😈😈😈",
-	  "I wish I could feel u inside me right now 🥵🥵🥵 in what position would u fuck me?😈😈😈",
-	  "I’m going to drain every last drop of cum out of you. are you down?😈😈",
-	  "Should I play with myself right now or you wanna do it for me instead?🥵🥵🥵",
-	  "Let's make that dick cum! will u allow me? ready?😈😈😈",
-	  "How many fingers do you think will fit inside my tight little wet pussy🤭🤭",
-		
-	];
-	  
+      "I wish I could feel u inside me right now 🥵🥵🥵 in what position would u fuck me?😈😈😈",
+      "I’m going to drain every last drop of cum out of you. are you down?😈😈",
+      "Should I play with myself right now or you wanna do it for me instead?🥵🥵🥵",
+      "Let's make that dick cum! will u allow me? ready?😈😈😈",
+      "How many fingers do you think will fit inside my tight little wet pussy🤭🤭"
+    ];
+
     const bundleList = document.getElementById("bundleList");
     const massList = document.getElementById("massList");
-    const rerollBundles = document.getElementById("rerollBundles");
-    const rerollMass = document.getElementById("rerollMass");
 
-    function copyText(msg, btn) {
-      navigator.clipboard.writeText(msg);
+    function copyText(text, btn){
+      navigator.clipboard.writeText(text);
       btn.textContent = "✅ Copied!";
-      setTimeout(() => (btn.textContent = "Copy"), 1500);
+      setTimeout(() => btn.textContent = "Copy", 1500);
     }
 
-    function randomPick(pool, count) {
-      return pool.sort(() => 0.5 - Math.random()).slice(0, count);
+    function randomPick(pool, count){
+      return [...pool].sort(() => 0.5 - Math.random()).slice(0, count);
     }
 
-    function showMessages(pool, container, count) {
-      container.innerHTML = "";
-      const chosen = randomPick(pool, count);
-      chosen.forEach((msg, i) => {
+    function appendNewMessages(container, messages) {
+      messages.forEach((msg, i) => {
         const div = document.createElement("div");
         div.className = "msg";
-        div.style.animationDelay = `${i * 0.1}s`; // staggered fade timing
-        div.innerHTML = `<span>${msg}</span>`;
+        div.style.animationDelay = `${i * 0.1}s`;
+
+        const span = document.createElement("span");
+        span.textContent = msg;
+
         const btn = document.createElement("button");
         btn.textContent = "Copy";
         btn.onclick = () => copyText(msg, btn);
-        div.appendChild(btn);
+
+        div.append(span, btn);
         container.appendChild(div);
       });
     }
 
-    rerollBundles.onclick = () => showMessages(bundlePool, bundleList, 3);
-    rerollMass.onclick = () => showMessages(massPool, massList, 3);
+    function showMessages(pool, container, count) {
+      if (container.children.length === 0) {
+        appendNewMessages(container, randomPick(pool, count));
+        return;
+      }
 
-    showMessages(bundlePool, bundleList, 3);
-    showMessages(massPool, massList, 3);
+      // Fade out old messages
+      const oldMsgs = Array.from(container.children);
+      oldMsgs.forEach(msg => msg.classList.add("fade-out"));
+
+      // Wait for the last one to finish transitioning
+      let completed = 0;
+      const total = oldMsgs.length;
+
+      const onTransitionEnd = () => {
+        completed++;
+        if (completed === total) {
+          container.innerHTML = "";
+          oldMsgs.forEach(msg => msg.removeEventListener("transitionend", onTransitionEnd));
+          appendNewMessages(container, randomPick(pool, count));
+        }
+      };
+
+      oldMsgs.forEach(msg => msg.addEventListener("transitionend", onTransitionEnd));
+    }
+
+    document.getElementById("rerollBundles").onclick = () => showMessages(bundlePool, bundleList, 3);
+    document.getElementById("rerollMass").onclick = () => showMessages(massPool, massList, 3);
+
+    // Initial load
+    appendNewMessages(bundleList, randomPick(bundlePool, 3));
+    appendNewMessages(massList, randomPick(massPool, 3));
   </script>
 </body>
 </html>
