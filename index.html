@@ -29,6 +29,7 @@
     .page.active { display: block; }
     .btn-copy-full { background: var(--accent-red); color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     .pool-count { font-size: 0.7rem; color: var(--text-dim); margin-left: 8px; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(25%) sepia(80%) saturate(700%) hue-rotate(320deg) brightness(90%); cursor: pointer; }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 </head>
@@ -56,6 +57,10 @@
           <span class="label-tag">Custom / VC</span>
           <input type="text" id="shift-custom" class="input-box" value="">
         </div>
+      </div>
+      <div style="margin-top: 20px;">
+        <span class="label-tag">Data</span>
+        <input type="date" id="shift-date" class="input-box" style="width:100%; box-sizing:border-box;">
       </div>
       <div style="margin-top: 20px;">
         <span class="label-tag">Fani prioritari</span>
@@ -96,108 +101,158 @@
     const SHIFTS = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
 
     const bundlePool = [
-      "I'm waiting for you my love !💕💕💕 What are you waiting for?🥵🥵🥵🥵 All I want is for you to be in my bed right now! I want to feel your kisses on my body and make me feel like the most loved woman in the world💗",
+      "I'm waiting for you my love !💕💕💕 What are you waiting for?🥵🥵🥵🥵 All I want is for you to be in my bed right now🥵🥵🥵 ! I want to feel your kisses on my body and make me feel like the most loved woman in the world💗",
       "Can you resist to that temptation?😈🙈 This bundle is for you if you want to see me playful and unfiltered, let your curiosity lead the way. 😈",
-      "Just sit down and watch me strip for you🥵🥵 Play with yourself and look me in the eyes😈😏😏 Tell me how much you want me and I might let you 🙈🙈❤",
+      "Just sit down and watch me strip for you🥵🥵 Play with your cock and look me in the eyes😈😏😏 Tell me how much you wanna fuck me and I might let you 🙈🙈❤",
       "HEY YOU! 😈😈😈😈 YES YOU! 🥵🥵🥵🥵 I'm leaving this message here for when you start missing me 😏💋",
-      "Premium bundle for today!!!!!!!!!!!!!! 💎💎💎 No explanation needed, just open and feel how naughty I can be, for the best price ever ❤️❤️❤️❤️ I am waiting for your next move ❤️",
-      "I know that you want to discover more of me, which is why I send you this — here is all you need to see every inch of my body, just open it and let me do the rest 😈❤️❤️",
-      "COME HERE 😈😈😈 I have some new content for you discounted, take the cake while it's still hot ❤️❤️❤️",
-      "I thought of wearing something red, do I look good in it? Or do I look even better without it?😏😏😏 Give me your opinion💋",
-      "Hmmm😏😏 I think we should have some fun tonight — seeing me strip for you will leave you speechless, so why waste time?😝 Open it and let me take you somewhere you've never been before👅👅",
-      "Do you like how my body looks in jeans?😏😏😏 Or do you like it better when I have less on?😈😈😈😈",
-      "The way you look at me turns me on so much, I crave it every time and I can't wait for you to look at me again through this bundle 🥵🥵🥵😻😻",
-      "I've been to the gym today and I have to say… the results are looking really good 🙈🙈😩 Come see for yourself",
-      "I can't believe how good this turned out 🙊🙊 I packed everything into this bundle and I think you're going to love it 💦 are you ready?🥵🥵",
-      "Do you know how bad I want to give you everything? 😘 My bundle is packed with my best moments, made just for your eyes. It's going to leave you breathless 💦💋",
-      "I have a challenge for you 😈😈😈 open this bundle — if it doesn't blow your mind in 5 minutes, I'll give you something for free 💋💋 Ready? ❤️",
-      "I've wrapped up my naughtiest scenes in one sinful little bundle… moans, messy fantasies, and moments I probably shouldn't have filmed 😈 Think you can handle all of me at once?",
-      "This bundle shows off every angle, every inch… I let the camera see everything. Don't say I didn't warn you 🥵",
-      "Just uploaded a tempting little package. My lips, my hips, and everything in between… ready to ruin your self-control. Open at your own risk 😘",
-      "I have a generous body and a huge appetite for fun, and I packed all of that into this bundle just for you 💋💋🫦 Are you ready? 😈",
-      "How far can you go with me? 😏💋 I want you to feel free and admire me through this bundle — let's play and see where it leads us 😋❤️❤️",
-      "I can't decide which angle looks best on me 🍑 I need a second opinion from you 🤭🤭🤭",
-      "I was getting ready and got distracted by my own reflection… so I decided to show you exactly why I couldn't look away 😈😈😈",
-      "I found a new camera angle that shows everything from your perspective 😏💋 Seeing myself like that changed the whole mood. It's almost too much 😈🫦🫦",
+      "Premium bundle for today!!!!!!!!!!!!!! 💎💎💎 And to be honest, there is no need for any explanation, just open and feel how naughty I can be, for the best price ever ❤️❤️❤️❤️ I am waiting for your next move ❤️",
+      "I know that you want to discover more of me, which is why I send you this beauty, so you can take care of her, here is all you need to see every inch of my body, just open it and let me do the rest 😈❤️❤️",
+      "COME HERE 😈😈😈 I have some new content for you discounted, make sure you're taking the cake while is still hot, I want you to be updated with everything I do, so let me make you happy ❤️❤️❤️",
+      "I thought of wearing something red, do I look good in it? Or do I look even better naked?😏😏😏 How about you give me your opinion, my pussy its already so wet and she need your attention😈😈😈😈",
+      "Hmmm😏😏 I think that we should have some fun tonight, and I have something for you so we can start it in the most beautiful way, seeing me in my fancy outfit stripping for you will leave you speechless, so why to waste time?😝 Open it and let me dive you through something you never felt before👅👅",
+      "Do you like how my ass looks in jeans?😏😏😏 Or do you like it better only when I have my panties on?😈😈😈😈",
+      "The way you look at me turns me on so much, I love it, I crave it every time and I can't wait for you to look at me once again through this bundle 🥵🥵🥵😻😻",
+      "There's nothing more that I love than a good fuck, bending over and just feeling you get inside of me 😈🥵🥵🥵🥵🥵 Are you in for that? Daddy!",
+      "I've been to the gym today and when I got up I noticed I left some sweat spots and it matches this fat ass and my pussy lips🙈🙈🙈😩",
+      "I can't believe how hard my legs are shaking right now 🙊🙊 I've accumulated all this tension between my thighs and I finally let her go 💦 would you make me even wetter ?🥵🥵",
+      "Do you know how bad I want to give you everything? 😘 My bundle is packed with all my best and naughtiest moments, made just for your eyes. Trust me, it's going to leave you breathless. Ready to see all of me? 💦💋",
+      "I have this bundle right here, and I have a challenge for you 😈😈😈 if you open it, and it won't make you cum in 5 minutes, I will give you something for free 💋💋 Are you ready to start this beautiful game? ❤️",
+      "The sun ☀️ is shining and my pussy is dripping wet 💦💦💦, there is no way you're going to miss a view like this I know for a fact that this will make your day even brighter than the sun 💋💋💋💋💋💋",
+      "I've wrapped up my naughtiest scenes in one sinful little bundle… It's moans, messy fantasies, and moments I probably shouldn't have filmed 😈 Think you can handle all of me at once?",
+      "This bundle? It shows off every angle, every inch, every gasp… I let the camera see everything. Don't say I didn't warn you 🥵",
+      "Just uploaded a filthy little package full of temptation. My lips, my hips, and everything in between… ready to ruin your self-control. Open at your own risk 😘",
+      "Want to see me dripping, squirming, begging? It's all in here… my hottest clips bundled just for you. Press play and don't blame me if you can't stop watching 🔥",
+      "I want you to grab my boobs like how I am grabbing them in this bundle for you, I want you to have all the glucose in your body from them by sucking them like crazy 😝😝😝😝😝",
+      "I have a generous body and a huge appetite for some fun right now, and the best thing is that I know that I don't miss 🤭🤭💋 And I packed all my skills inside this bundle destined for you to see it and feel it 💋💋🫦 Are you ready? 😈",
+      "I am looking you deep in the eyes and I am asking myself how far can you go with me? 😏💋 I want you to feel freely with me, and admire me through this bundle that I've prepared for you, let's play this game and see where it leads us 😋❤️❤️",
+      "I was just looking at these and I can't decide which part of me looks best, is it the view from the front or when I turn around? 🍑 I need a second opinion from you.🤭🤭🤭",
+      "I was just looking at my curves in this new outfit and I'm worried it's a bit too tight or is there no such thing as 'too tight' for you?😏😏",
+      "I found a camera angle I've never used before it shows everything from your perspective 😏💋 seeing myself like that changed the whole mood. It's almost too much.😈🫦🫦",
+      "I was supposed to be getting ready for my day, but I got distracted by my own reflection and in the end, I decided to show you exactly why I couldn't look away. 😈😈😈",
       "I was just looking at my curves in this new outfit and honestly… I think you need to see this too 😏😏",
-      "You've been on my mind all day and I had to do something about it 😈💋 Everything is in this bundle waiting for you to open it",
-      "I put my best self in here… the version of me you keep coming back for 🔥 Don't keep me waiting too long 💋",
-      "Something about today made me feel extra bold 😏 and I captured every single second of it just for you 💎",
-      "I know you've been curious about what I look like when I really let go 🙈 Well… now you can find out 😈💦",
-      "Okay so I may have gone a little overboard with this one 😝 but honestly? You're worth it 💕 Open it and tell me what you think",
-      "This is the kind of content I save for my favorites 💋 and today, that's you 😈 Don't miss it",
-      "I woke up feeling dangerous today 😈 and I put it all on camera for you 🎥 You ready for this?🥵",
-      "Some days I surprise even myself 🤭 Today was one of those days — it's all in this bundle 🔥",
-      "I've been teasing you long enough 😏 This bundle is me finally giving you everything 💋💋",
-      "Think of this as a VIP pass to the best version of me 💎💎 You're going to want to open this right now 🥵",
-      "I was in such a good mood today that I just… kept going 😝 The results are all in here for you 💕",
-      "You said you wanted more of me? 😏 Well here I am, all of me, in one place just for you 🔥❤️",
-      "I don't send this to everyone 🤫 but something told me you'd appreciate it 😈 Open it and prove me right 💋",
-      "I got a little creative today 🎨 and by creative I mean absolutely unfiltered 😈 It's all yours 💕",
-      "Every time I look at this I can't believe I filmed it 😳😈 but I did… and now it's yours 💋🔥",
-    ];
+	  "Daddy I am very horny right now and I want to show all my horny nature🤭 I made something for you and your cock that deserves everything from me.😉Imagine me caressing the head of your dick with my tongue,👅 licking it like the sweetest candy in a circular motion and your dick skin enjoying the pleasure of the narrowness of my mouth. 🥵",
+	  "I'm in such a great mood today that I really want to share it with you.🙈 That's why I've prepared something incredible for you 😉😉 my sexy lingerie, covering some places, but it's insanely sexy!😈Do you like bad girls? or you like them naughty like me? 🤭",
+	  "I have one question 🙈 Are you ready for what's next? I was sooo horny and I thought it's time to work for you daddy 😳😈 You need to believe that I was so naughty when I recorded it😈😈",
+	  "I don't know how to say this but lately, I started to feel way too naughty and wild😈🙈 I'm thinking that this lingerie makes me so hot and it got my body to go into crazy mode I want you to see how wet my tight pussy got, love.. and how my nipples are ready for some proper ACTION😍",
+	  "Imagine me getting down on my knees in front of you, looking up in your eyes, taking your big hard cock in my hand then sliding every inch of it down my throat, that's the view I want you to dream of every single night before you go to bed and now its time for you actually see it😈😏",
+	  "I know I'm such a tease but I know you love it 😜 I'm feeling like I should make your day a bit more special, and let me take care of you 😈",
+	  "Hey daddy 😏😏 do you think I look naughty enough for you like this?🤭 Because I started to crave for some proper cock and I made something for you😍 I want you to show me how hard I made that cock of yours because I am planning on give it a good time😏",
+	  "How would you rate my back arch, daddy?🫣 Am I looking fuckable enough for you? 😏 because I like to think that I am pretty fuckable and because of that I decided to slide some surprises for you and convince you how fuckable I am🙈🤭",
+	  "I'm feeling a little bit extra naughty today 🥵 I decided to take absolutely everything off me because my whole body belongs to you🙈 Rate my elasticity because believe me I can do wonders in bed with you😈😈",
+	  "It’s COCK O CLOCK! I decided that it's time to take care of that cock of yours that deserves to be spoiled.😈😈👅 I want you to go even more, put it into my throat until I will start gagging on it, I am begging you. Take a look because I am so confident that it'll make it hard as a rock😈😍",
+	  "How badly you want me to become your naughty girl that will make all of your fantasies come true? Because I want to be that girl and while thinking at that, my tight pussy went so wet and my boobs so hard that all I'm thinking right now is how your cock will be inside of me😩😩 Take a look and tell me all the things you'd do to me, I'm begging you🥵🥵",
+	  "You already know it's very important to drink 2L of water every day. But do you know what is mandatory??😈 To cum every single day!!! Come with me and let's make that happen🤪💦🍆 My body is all yours and I am throbbing for that cock of yours😈😈",
+	  "This is exactly how i would start fucking your cock until its rock hard 😋 finally bending my sexy ass over so you can start fucking my wet pussy until you cum 😍 where are you cumming at daddy?",
+	  "Am I turning you on when I'm lying in this sexy lingerie on the bed in front of you? I have an interesting story that will help us have fun, do you want me to tell you?😈🙈",
+	  "My hole's already wet, I think you'll need to clean the creamy mess with your tongue💦💦🥵 I want you to explore me because I want you to be ready for what's next",
+	  "I spread my legs to show you my smooth little pink wet pussy💦💦🥵 Do you want to see how tight it is and how the fingers of my hand will tease my clit, and the fingers of other my hand will penetrate deeper and make me moan sweetly and softly?😈😈😈😈",
+	  "I know I was a bad girl for giving you this bundle full of my pussy, but you have to make me repent for🤭😏",
+	  "I'm waiting for you to bury your head between my legs and taste my delicious juices. I want you to make my body tremble🥵🥵🥵🥵",
+	  "The desire burns inside you to touch me more and more. To touch my breasts and play with them, my nipples are hard and you go down to my belly, my soft skin wants to be kissed. 💦💦🥵 Go lower and lower until you reach where I want you to, then taste all of me😈",
+	  "I’m soaking through my lace right now just imagining your hands all over me 😈💦 Come here and ruin me properly daddy, I want to feel you deep inside me all night long 🥵🔥",
+	  "I’m so incredibly slick and ready for you right now 🤤💦 Come over here and stretch me out until I’m screaming out your name and begging you for more🥵🥵",
+	  "May I have your attention? Once you will unlock this bundle that means that you are truly prepared for😏😏😏",
+	  "Should I be doing a striptease for you or not? Feels like you really have to watch that if the answer is yes😜😜😈",
+	  "Close your eyes and feel how soft I am 🙈💋 I want to move so slow it drives you crazy🥵just staring at me while I take every inch😏",
+	
+	   ];
 
     const massPool = [
-      "I'm just here, alone feeling a little mischievous, are you too?💋",
+      "I'm just here, alone feeling a little naughty, are you too?💋",
+	  "It feels like my pussy's needy today 😘😈 I would need to crave for that boner to punish me?! 🥵Or he would destroy me too?",
+	  "I’m so ready for you to just take me and do whatever you want 🥵🤤 I want to be stretched and used",
+	  "What are you doing right now? Do you mind if I drain your balls?😘😈",
+	  "Everything is soo boring when you are horny, don’t you think so daddy?😈😈",
+	  "guess what I’m thinking about daddy. I’ll give you a hint: 👅🍆",
+	  "I’ll make all your fantasies come true and you won't be able to get enough of me😈😈😈",
+	  "I'm all alone in my bed and i was thinking if you could bring me to the most intense orgasm I've had in a while🥵🥵🤤",
+	  "Where would you cum when we are fucking and you can't hold it in anymore? On my tits, face, stomach or inside my wet tight little pussy?😈😈",
+	  "Can you rub the back of my throat with your cock?",
+	  "God, my pussy is so wet. I can’t wait for you to finally take care of it, but you better hurry my pussy won't stay wet forever🤤🤤",
+	  "Tonight, we're going to play teacher and I'm going to give you a hell of a lesson in bed😈😈",
+	  "Tell me what you think when you fantasize about me🙈🙈",
+	  "Cancel your morning plans, because I'm going to keep you up all night using this body that you love so much😏",
+	  "Wait until you see what I'm not wearing under my clothes😈😈",
+	  "I'm soo horny and I want to do something about it! 🙈 I need you to help with with that right now because I have a feelign you are the same!😈😈",
+	  "I can make you have so many wet dreams with me, can you make me dream of your cock too daddy?",
+	  "I want to have a word with your dick 🤤🤤 take it out right now!",
+	  "Look at the clock, it's cum time😈😈",
+	  "Can I use your hands as my bra?",
+	  "Will you be my personal hand bra😏?",
+	  "Do you think you could take my bra off in under 5 seconds?",
+	  "How many times could you cum on my tits in 20 minutes?😏😏",
+	  "Would you grab onto my tits while fucking me from behind?😈😈",
+	  "Ass or Titties?",
+	  "Would you rather cum on my ass or in my pussy?",
+	  "What would your favorite sex position with me in it?😏",
+	  "How badly do you want me to strip for you right now?",
+	  "What would you give to have these lips wrapped around your cock?😈😈",
+	  "Does daddy wanna play with me?",
+	  "I can feel it, you're undressing me with your eyes aren't you?😏🤤",
+	  "Netflix and Chill? except it's more like fuck and then chill right?🤭🤭",
+	  "How do you politely tell someone that you want them naked on top of you?",
+	  "I've been playing with this pussy all day, can you take care of it for me daddy?😈😈",
+	  "Don't you think that my pussy is missing something or someone?😏💦",
+	  "You know I'm no magician🎩 but it seems like my lips are a real miracle😏😏 can you think of some places where you'd like to feel them right now?🤭🤭",
+	  "If I was Cinderella and I lost my panties, would you look for me in the entir e Kingdom to find me by my scent?😈🤤",
+	  "Watching you taking off my panties with your teeth would make my pussy so wet🙈",
+	  "Who says kitties are afraid to get wet? Because mine isn’t😋😋",
+	  "I want you to fuck me in all positions, I am very flexible and I am very horny daddy, give me a big cock 🥵🥵",
+	  "Let me show you how good this pussy can feel!😋",
+	  "Let's place a bet: How long do you think you can last if I get on my knees and start playing with that cock of yours with mouth😈😈?",
+	  "Since there's no judgement here, would you share with me something so personal you haven't told anyone before?🤭🤭",
+	  "What's your guilty pleasure?",
+	  "What's your favorite position?😘😈",
+	  "The job im the best at is a blowjob 😏💦 want me to prove it? 🍆😩",
+	  "You like to fuck me more from the front, or from the back?",
+	  "If you could make three sexy wishes, what would they be?",
+	  "Oops, I've been bad girl today. Want to punish me for that daddy?😏😏",
+	  "Is missionary the best position out there?",
+	  "What's the wildest thing you've ever done in bed? I wonder if you are dirtier than I am😈😈",
+	  "What's something you've always wanted to ask me but haven't?",
+	  "On a scale of one to the Eiffel Tower, how high is your sex drive?🥰🥵",
+	  "How spicy do you like your dish?🤭 Because I like all of my dishes extra hot like me😈🥵",
+	  "Fuck daddy , my pussy feels so hot and wet right now, you wanna feel it?💦🤤🤤",
+	  "What’s your favorite part about my body?🤭🤭",
+	  "On a scale of ‘good girl’ to ‘bad girl’, where do you think I stand?",
+	  "How do you feel about a quickie to make your day even better?🤭",
+	  "I'm having trouble getting my panties off can you help me out?😈🤭",
+	  "Ever taken a trip to paradise?🤭🤭",
+	  "If you could plan the perfect date for us, how would it be?🥰🥰",
+	  "What’s a dream you’ve had about me?🤭🤭",
+	  "I’m so needy and so wet and I just need you to come take care of me 🥵✨ I want to be pounded into this tight wet pussy of mine",
+	  "I want to feel you stretching me out until I’m completely numb and happy 🤤💦 There’s nothing I want than feeling every inch inside of me right now",
+	  "I want to feel your hands gripping my hips while you’re going as deep as possible 🥵✨ I’m yours to ruin tonight just do it and don't stop until your balls are empty",
+	  "I want you to be so deep inside me that we’re practically one person 😈💦 I’m so slick and ready for you to just slide right in🥵🥵",
       "Are you ready?😈 I want you to just sit back and let me entertain you tonight… What should I do first?🤭",
+	  "I’m picturing you sliding into me and I’m literally moaning out loud 🤤💦 I need you to make that a reality before I lose my mind",
       "What is something you always wanted to see me doing? 😈 Don't be shyyy💋💋",
-      "I'm in a mood today and I need someone to talk to 😈😈😈😈",
       "What kind of content would you open right now?😏💋",
-      "I miss having someone to talk to and have fun with😍😍😍🥵",
       "What would you do to me if I was there with you?🤭🤭🤭",
-      "I'm feeling really flirty today 🤫🤭",
-      "Let's have some fun 🥵",
-      "Wanna spice things up? 😈",
-      "Are you ready to play with me? 😋",
-      "Stop what you're doing and give me some attention 🙈🤭",
-      "Let's try this — you pick the category, I make you a discount ❤️ Deal?👅",
-      "Wanna see how naughty I can get? 😈😈😈😏",
-      "Hey, wanna play with me a bit? I promise I don't bite… maybe 🤭🤭😋",
+	  "I’m currently sitting in the dark and feeling all the tingles in all the right places 🌑✨ I need you to come light me up until I’m glowing 🥵🔥",
+      "Hey, wanna play with me a bit? I promise I don't bite… too much 🤭🤭😋",
       "I'm wearing something I am sure you'd love on me right now 🤭",
-      "Let's spoil each other tonight, are you ready? 😈😈😈",
       "My hands are wandering… want to guess where they'll end up? 😏",
       "What instantly turns you on? 😈😈😈",
-      "Heeeeey, wanna play with me a bit? 🤭🤭",
       "I am feeling so naughty right now 😈😈 can you help me??",
       "I just got out of the shower and I want you to guess what I'm not wearing 🤭🤭",
-      "I'm looking for a little trouble tonight, got any ideas for me? 😇",
       "What's the one thing you've always wanted to ask me but were too shy to say?",
       "If you could lock me in a room for an hour, what's the first thing we're doing? 😈😈😈😈",
       "I'm in a mood to be told what to do tonight 🤭🤭 What's your first command?",
       "Describe your dream girl in 3 words. Let's see if I fit the description 😇😇",
-      "I can't decide — good girl or bad girl today? 😇😈 You choose",
-      "Tell me the first thing you notice when you look at my photos 🤭",
-      "If you could read my mind right now… I think you'd be surprised 😈😈😈😈",
-      "Okay real talk… I've been thinking about you today 🤭 Is that weird?💋",
-      "I just did something I've never done before on camera 😳 and I kind of need your reaction 👀",
-      "You ever just get in a mood where you want to be a little reckless? 😈 That's me right now",
-      "Tell me something you've never told anyone else 🤫 I'll go first if you want 😏",
-      "I feel like we don't talk enough 🥺 Change that? 💬💋",
-      "What's your love language? 😇 Asking for a very specific reason 😏",
+      "I can't decide, good girl or bad girl today? 😇😈 You choose",
+      "If you could read my mind right now, I think you'd be surprised 😈😈😈😈",
       "If I showed up at your door right now, what would you do? 🤭🤭",
-      "I need a distraction tonight 😈 and I think you're exactly what I'm looking for 💋",
-      "Be honest — what's the first thing you think of when you see my name pop up? 😏",
-      "I'm bored and dangerous 😈 someone entertain me before I do something crazy 🙈",
       "What would you say to me if you knew I couldn't say no tonight? 😇😈",
       "I have a theory that you think about me more than you admit 😏 prove me wrong 💋",
-      "Okay I need your honest opinion on something 🤭 are you the type to tell the truth?",
       "I feel like you'd be really fun to spend a night with 😈 am I right or am I right?",
       "What's something you've always been curious about me? 🤭 Now's your chance to ask 💋",
-      "I just caught myself smiling for no reason 🙈 and then I thought of you… coincidence?💕",
-      "You seem like the type who knows exactly what they want 😏 so tell me — what do you want from me?",
+      "You seem like the type who knows exactly what they want 😏 so tell me what do you want from me?",
       "I'm in a playful mood and no one is here to stop me 😈😈 lucky you 💋",
-      "Quick question — are you more of a morning person or a late night person? 🌙 I have a follow-up 😏",
       "I've been told I'm hard to forget 😇 is that true for you? 💋",
-      "What do you do when you can't sleep? 🌙 I have some ideas if you need suggestions 😈",
-      "You've been on my mind and I felt like you should know 💕 that's it, that's the message 🤭",
       "If we were stuck somewhere together for a whole night, how do you think it would go? 😏",
-      "I want to know your weirdest habit 🤭 I'll share mine too, deal? 😇",
-      "I like people who are a little unpredictable 😈 are you one of those? 💋",
-      "Tell me your go-to move when you want to impress someone 😏 I'm taking notes 📝",
-      "What's the most spontaneous thing you've ever done? 🤭 I'm asking because I'm about to top it 😈",
+      "What's the naughtiest thing you've ever done? 🤭 I'm asking because I'm about to top it 😈",
       "I feel like you and I would have a lot of fun together 😈 don't you think? 💋",
-      "I'm giving you a chance to say something bold right now 😏 the floor is yours 💋",
-      "Do you believe in good vibes? Because I'm sending you a lot of them right now 💕😈",
     ];
 
     let earnings = {}; let modelNotes = {}; let currentShiftIdx = 0;
@@ -220,6 +275,13 @@
         div.innerHTML = `<div class="model-header"><span class="model-name">${name}</span><span id="val-${id}" class="val-text">$0.00</span></div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"><div><span class="label-tag">Statement</span><textarea class="input-box monospace" style="height:100px;" id="input-${id}" oninput="processInput('${name}')"></textarea></div><div><span class="label-tag">Notes</span><textarea class="input-box" style="height:100px; font-size:13px;" id="notes-${id}" oninput="updateNotes('${name}')"></textarea></div></div>`;
         list.appendChild(div);
       });
+      // Auto-set today's date
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, '0');
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const yyyy = today.getFullYear();
+      document.getElementById('shift-date').value = `${yyyy}-${mm}-${dd}`;
+
       document.getElementById('bundle-count').innerText = `(${bundlePool.length} messages)`;
       document.getElementById('mass-count').innerText = `(${massPool.length} messages)`;
       showIceMessages(bundlePool, 'bundleList', 3);
@@ -260,7 +322,16 @@
         if (notes.trim() !== "") { r += `${notes}\n`; }
         r += `---\n`;
       });
-      r += `Tura: ${document.getElementById('shift-time').value}\nTotal net: $${grand.toFixed(2)}\n`;
+      // Format date nicely as DD/MM/YYYY
+      const rawDate = document.getElementById('shift-date').value;
+      let formattedDate = rawDate;
+      if (rawDate) {
+        const [y, m, d] = rawDate.split('-');
+        formattedDate = `${d}/${m}/${y}`;
+      }
+      r += `Data: ${formattedDate}\n`;
+      r += `Tura: ${document.getElementById('shift-time').value}\n`;
+      r += `Total net: $${grand.toFixed(2)}\n`;
       r += `Custom / VC: ${document.getElementById('shift-custom').value}\nFani prioritari:\n${document.getElementById('shift-fani').value}`;
       document.getElementById('output-report').value = r;
     }
