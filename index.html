@@ -1,213 +1,109 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Jucarie T1 Final boss</title>
-
   <style>
-
     :root { --bg: #121214; --card-bg: #1a1a1d; --accent-red: #9e1b1b; --accent-glow: #ff4d4d; --text-main: #ffffff; --text-dim: #b0b0b5; --border: #2d2d30; --input-bg: #0d0d0f; }
-
     body { font-family: 'Quicksand', sans-serif; background: var(--bg); background-image: radial-gradient(circle at top right, #251010 0%, var(--bg) 60%); color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; padding-bottom: 140px; }
-
     h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: 3px; margin: 40px 0; text-transform: uppercase; color: var(--accent-glow); text-shadow: 0 0 15px rgba(255, 77, 77, 0.3); }
-
     .nav-tabs { display: flex; background: var(--card-bg); padding: 6px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 30px; width: 100%; max-width: 650px; }
-
     .nav-btn { flex: 1; padding: 12px; background: transparent; border: none; color: var(--text-dim); font-weight: 600; cursor: pointer; border-radius: 10px; transition: all 0.3s ease; }
-
     .nav-btn.active { background: var(--accent-red); color: white; }
-
     .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; width: 100%; max-width: 800px; box-sizing: border-box; }
-
     .model-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-
     .model-name { font-size: 1.1rem; color: var(--accent-glow); font-weight: 600; }
-
     .val-text { color: var(--accent-glow); font-weight: 700; }
-
     .label-tag { font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; display: block; }
-
     .input-box { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: var(--text-main); font-family: inherit; resize: none; box-sizing: border-box; }
-
     .monospace { font-family: 'Consolas', monospace; font-size: 14px; }
-
     .msg-item { background: var(--input-bg); padding: 20px; border-radius: 15px; margin-bottom: 15px; border-left: 4px solid var(--accent-red); }
-
     .msg-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 12px; display: block; }
-
     .bottom-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: rgba(30, 30, 35, 0.95); backdrop-filter: blur(12px); border: 1px solid #444; padding: 15px 25px; border-radius: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-
     .total-val { font-size: 1.6rem; font-weight: 700; color: var(--accent-glow); }
-
     .btn-finish { background: #2a2a2e; color: var(--text-dim); border: 1px solid #444; padding: 10px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; }
-
     .btn-finish:hover { border-color: var(--accent-glow); color: white; }
-
     .btn-cycle { background: #2a2a2e; border: 1px solid var(--border); color: var(--accent-glow); border-radius: 10px; padding: 0 15px; cursor: pointer; font-size: 1.2rem; }
-
     .page { width: 100%; max-width: 800px; display: none; }
-
     .page.active { display: block; }
-
     .btn-copy-full { background: var(--accent-red); color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-
     .pool-count { font-size: 0.7rem; color: var(--text-dim); margin-left: 8px; }
-
     .btn-today { background: #2a2a2e; border: 1px solid var(--border); color: var(--accent-glow); border-radius: 10px; padding: 7px 14px; cursor: pointer; font-size: 0.75rem; font-weight: 700; margin-top: 8px; letter-spacing: 1px; transition: all 0.2s; }
-
     .btn-today:hover { border-color: var(--accent-glow); background: #1a1a1d; }
-
     input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(25%) sepia(80%) saturate(700%) hue-rotate(320deg) brightness(90%); cursor: pointer; }
-
   </style>
-
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-
 </head>
-
 <body>
-
   <h1> Jucarie T1 </h1>
-
   <div class="nav-tabs">
-
     <button id="btn-1" class="nav-btn active" onclick="showPage('page-calc', 'btn-1')">Calculators</button>
-
     <button id="btn-2" class="nav-btn" onclick="showPage('page-report', 'btn-2')">Shift Report</button>
-
     <button id="btn-3" class="nav-btn" onclick="showPage('page-jucarie', 'btn-3')">Messages</button>
-
   </div>
-
-
 
   <div id="page-calc" class="page active"><div id="model-list"></div></div>
 
-
-
   <div id="page-report" class="page">
-
     <div class="card">
-
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-
         <div>
-
           <span class="label-tag">Tura</span>
-
           <div style="display:flex; gap:8px;">
-
             <input type="text" id="shift-time" class="input-box" value="07:00 - 15:00">
-
             <button class="btn-cycle" onclick="cycleShift()">&#8635;</button>
-
           </div>
-
         </div>
-
         <div>
-
           <span class="label-tag">Custom / VC</span>
-
           <input type="text" id="shift-custom" class="input-box" value="">
-
         </div>
-
       </div>
-
       <div style="margin-top: 20px;">
-
         <span class="label-tag">Data</span>
-
         <input type="date" id="shift-date" class="input-box" style="width:100%; box-sizing:border-box;">
 
       </div>
-
       <div style="margin-top: 20px;">
-
         <span class="label-tag">Fani prioritari</span>
-
         <textarea id="shift-fani" class="input-box" style="height:80px;"></textarea>
-
       </div>
-
     </div>
-
     <button class="btn-copy-full" onclick="buildReport()">Generate Final Report</button>
-
     <textarea id="output-report" class="input-box monospace" style="height:300px; margin-top:20px; border-style: dashed;" readonly></textarea>
-
   </div>
-
-
 
   <div id="page-jucarie" class="page">
-
     <div class="card">
-
       <div class="model-header">
-
         <span class="model-name">Bundles <span class="pool-count" id="bundle-count"></span></span>
-
         <button class="btn-finish" onclick="showIceMessages(bundlePool, 'bundleList', 3)">&#127922;</button>
-
       </div>
-
       <div id="bundleList"></div>
-
     </div>
-
     <div class="card">
-
       <div class="model-header">
-
         <span class="model-name">Mass Messages <span class="pool-count" id="mass-count"></span></span>
-
         <button class="btn-finish" onclick="showIceMessages(massPool, 'massList', 3)">&#127922;</button>
-
       </div>
-
       <div id="massList"></div>
-
     </div>
-
   </div>
-
-
 
   <div class="bottom-bar">
-
     <div style="display:flex; flex-direction:column">
-
       <span class="label-tag" style="margin:0; color:#888;">Total Net</span>
-
       <span class="total-val" id="grand-total">$0.00</span>
-
     </div>
-
     <button class="btn-finish" onclick="buildReport(); showPage('page-report', 'btn-2')">Finish Shift</button>
-
   </div>
 
-
-
   <script>
-
     const MODELS = ["JessieJaye", "JessieJayeNew", "JessieJayVip", "XCurvyGoddess", "XCurvyGoddessVip", "xNicoleMilf", "Anna", "Anna03"];
-
     const SHIFTS = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
 
-
-
     const bundlePool = [
-
       "I'm waiting for you my love !💕💕💕 What are you waiting for?🥵🥵🥵🥵 All I want is for you to be in my bed right now🥵🥵🥵 ! I want to feel your kisses on my body and make me feel like the most loved woman in the world💗",
       "Can you resist to that temptation?😈🙈 This bundle is for you if you want to see me playful and unfiltered, let your curiosity lead the way. 😈",
       "Just sit down and watch me strip for you🥵🥵 Play with your cock and look me in the eyes😈😏😏 Tell me how much you wanna fuck me and I might let you 🙈🙈❤",
@@ -259,13 +155,11 @@
       "I'm so incredibly slick and ready for you right now 🤤💦 Come over here and stretch me out until I'm screaming out your name and begging you for more🥵🥵",
       "May I have your attention? Once you will unlock this bundle that means that you are truly prepared for😏😏😏",
       "Should I be doing a striptease for you or not? Feels like you really have to watch that if the answer is yes😜😜😈",
-      "Close your eyes and feel how soft I am 🙈💋 I want to move so slow it drives you crazy🥵just staring at me while I take every inch😏",
-	  "I've been locked out of heaven for too long, I need you to make me feel alive once again, make my wings appear once again while we're both feeling good 🥵🥵🥵",
-
-    ];
-
-
-
+      "Close your eyes and feel how soft I am 🙈💋 I want to move so slow it drives you crazy🥵just staring at me while I take every inch😏"
+	  
+	];
+	  
+	  
     const massPool = [
 
       "I'm just here, alone feeling a little naughty, are you too?💋",
@@ -434,206 +328,104 @@
 	  
     ];
 
-
-
     let earnings = {}; let modelNotes = {}; let currentShiftIdx = 0;
 
-
-
     function getTodayValue() {
-
       const today = new Date();
-
       const dd = String(today.getDate()).padStart(2, '0');
-
       const mm = String(today.getMonth() + 1).padStart(2, '0');
-
       const yyyy = today.getFullYear();
-
       return `${yyyy}-${mm}-${dd}`;
-
     }
-
-
 
     function setToday() {
-
       document.getElementById('shift-date').value = getTodayValue();
-
     }
-
-
 
     function showPage(pId, bId) {
-
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
       document.getElementById(pId).classList.add('active');
-
       document.getElementById(bId).classList.add('active');
-
     }
-
-
 
     function init() {
-
       const list = document.getElementById('model-list');
-
       list.innerHTML = "";
-
       MODELS.forEach((name) => {
-
         const id = name.replace(/\s/g, '');
-
         earnings[name] = 0; modelNotes[name] = "";
-
         const div = document.createElement('div');
-
         div.className = 'card';
-
         div.innerHTML = `<div class="model-header"><span class="model-name">${name}</span><span id="val-${id}" class="val-text">$0.00</span></div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"><div><span class="label-tag">Statement</span><textarea class="input-box monospace" style="height:100px;" id="input-${id}" oninput="processInput('${name}')"></textarea></div><div><span class="label-tag">Notes</span><textarea class="input-box" style="height:100px; font-size:13px;" id="notes-${id}" oninput="updateNotes('${name}')"></textarea></div></div>`;
-
         list.appendChild(div);
-
       });
-
       setToday();
-
       document.getElementById('bundle-count').innerText = `(${bundlePool.length} messages)`;
-
       document.getElementById('mass-count').innerText = `(${massPool.length} messages)`;
-
       showIceMessages(bundlePool, 'bundleList', 3);
-
       showIceMessages(massPool, 'massList', 3);
-
     }
-
-
 
     function cycleShift() {
-
       currentShiftIdx = (currentShiftIdx + 1) % SHIFTS.length;
-
       document.getElementById('shift-time').value = SHIFTS[currentShiftIdx];
-
     }
-
-
 
     function processInput(name) {
-
       const id = name.replace(/\s/g, '');
-
       const text = document.getElementById(`input-${id}`).value;
-
       const lines = text.split('\n');
-
       let total = 0;
-
       lines.forEach(line => {
-
         const money = line.match(/\$(\d+(\.\d{2})?)/g);
-
         if (money && money.length >= 2) total += parseFloat(money[money.length - 1].replace('$', ''));
-
       });
-
       earnings[name] = total;
-
       document.getElementById(`val-${id}`).innerText = `$${total.toFixed(2)}`;
-
       let g = 0; for (let k in earnings) g += earnings[k];
-
       document.getElementById('grand-total').innerText = `$${g.toFixed(2)}`;
-
     }
-
-
 
     function updateNotes(name) {
-
       const id = name.replace(/\s/g, '');
-
       modelNotes[name] = document.getElementById(`notes-${id}`).value;
-
     }
-
-
 
     function buildReport() {
-
       let r = ""; let grand = 0;
-
       MODELS.forEach((name, i) => {
-
         const val = earnings[name] || 0; const notes = modelNotes[name] || "";
-
         grand += val;
-
         r += `Model ${i+1}: ${name}\n`;
-
         if (notes.trim() !== "") { r += `${notes}\n`; }
-
         r += `---\n`;
-
       });
-
       const rawDate = document.getElementById('shift-date').value;
-
       let formattedDate = rawDate;
-
       if (rawDate) {
-
         const [y, m, d] = rawDate.split('-');
-
         formattedDate = `${d}/${m}/${y}`;
-
       }
-
       r += `Data: ${formattedDate}\n`;
-
       r += `Tura: ${document.getElementById('shift-time').value}\n`;
-
       r += `Total net: $${grand.toFixed(2)}\n`;
-
       r += `Custom / VC: ${document.getElementById('shift-custom').value}\nFani prioritari:\n${document.getElementById('shift-fani').value}`;
-
       document.getElementById('output-report').value = r;
-
     }
-
-
 
     function showIceMessages(pool, containerId, count) {
-
       const container = document.getElementById(containerId);
-
       container.innerHTML = "";
-
       const picks = [...pool].sort(() => 0.5 - Math.random()).slice(0, count);
-
       picks.forEach(msg => {
-
         const div = document.createElement("div"); div.className = "msg-item";
-
         div.innerHTML = `<span class="msg-text">${msg}</span><button class="btn-finish" style="width:100%" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim()); this.innerText='Copied!'">Copy Text</button>`;
-
         container.appendChild(div);
-
       });
-
     }
 
-
-
     window.onload = init;
-
   </script>
-
 </body>
-
 </html>
