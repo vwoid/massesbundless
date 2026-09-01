@@ -6,7 +6,7 @@
   <title>Jucarie T1 Final boss</title>
   <style>
     :root { --bg: #09080b; --card-bg: #121016; --accent-red: #574a7d; --accent-glow: #9583b3; --text-main: #ffffff; --text-dim: #8d84a0; --border: #201c29; --input-bg: #08070a;
-      --jessie-color: #b083a8; --curvy-color: #83a3b0; --anna-color: #a3b083; }
+      --jessie-color: #b083a8; --curvy-color: #83a3b0; --jennie-color: #a3b083; }
     body { font-family: 'Quicksand', sans-serif; background: var(--bg); background-image: radial-gradient(circle at top right, #14111c 0%, var(--bg) 60%); color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; padding-bottom: 140px; }
     h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: 3px; margin: 40px 0; text-transform: uppercase; color: var(--accent-glow); text-shadow: 0 0 8px rgba(118, 103, 146, 0.2); }
     .nav-tabs { display: flex; position: relative; background: var(--card-bg); padding: 6px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 30px; width: 100%; max-width: 650px; }
@@ -48,7 +48,7 @@
     .sub-nav-btn.active { background: var(--model-color, var(--accent-red)); color: white; border-color: var(--model-color, var(--accent-red)); }
     .sub-nav-btn[data-model="jessie"] { --model-color: var(--jessie-color); }
     .sub-nav-btn[data-model="curvy"] { --model-color: var(--curvy-color); }
-    .sub-nav-btn[data-model="anna"] { --model-color: var(--anna-color); }
+    .sub-nav-btn[data-model="jennie"] { --model-color: var(--jennie-color); }
     .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 10px; color: var(--text-dim); text-align: center; gap: 10px; }
     .empty-state svg { opacity: 0.35; }
     .empty-state span { font-size: 0.85rem; }
@@ -101,7 +101,7 @@
     <div class="sub-nav-tabs">
       <button id="sub-btn-jessie" class="sub-nav-btn active" data-model="jessie" onclick="showMessageSubtab('jessie')">Jessie</button>
       <button id="sub-btn-curvy" class="sub-nav-btn" data-model="curvy" onclick="showMessageSubtab('curvy')">Curvy</button>
-      <button id="sub-btn-anna" class="sub-nav-btn" data-model="anna" onclick="showMessageSubtab('anna')">Anna</button>
+      <button id="sub-btn-jennie" class="sub-nav-btn" data-model="jennie" onclick="showMessageSubtab('jennie')">Jennie</button>
     </div>
     <div id="submessage-content"></div>
   </div>
@@ -117,7 +117,7 @@
   </div>
 
   <script>
-    const MODELS = ["JessieJaye", "JessieJayeNew", "JessieJayVip", "XCurvyGoddess", "XCurvyGoddessVip", "Anna", "Anna03", "Anna007"];
+    const MODELS = ["JessieJaye", "JessieJayeNew", "JessieJayVip", "XCurvyGoddess", "XCurvyGoddessVip", "Jennie"];
     const SHIFTS = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
 
     const jessieBundlePool = [
@@ -243,96 +243,19 @@
 
 	];
 	
-    const annaBundlePool = [
-	"I tried to make myself look as sweet and cute as possible 😇 but I wouldn't trust that face too much if I were you 🤭 the more you look the less attention you are going to have, all of the pics and vids will start getting too distracting 😏😏",
-    "I couldn't decide which picture to show you so I kept a few of my favorites I think you'll understand why when you see them and get to see every part of me and my curves 😈🥵",
-    "I think I showed a little more than I planned in these buuut they're already taken now soo you might as well enjoy them as well 🤭",
-    "I was planning on being a good girl buuut that didn't last too long and suddenly things became much more fun, I started to take all kind of poses and just bent myself over just for you to have a view at this amazing ass of mine 🤭",
-    "I couldn't decide which picture to show you so I kept a few of my favorites I think you'll understand why when you see them and get to see every part of me and my curves 😈🥵",
-    "Soo tell me something, how much trouble would I get in if I was to wear this next to you in bed? I am really curious what would happen, but I doubt this would stay on for too long 😈😏",
-    "Picture me crawling into bed beside you dressed like this I'd act like I'm only there to sleep, buuut I think we'd both know that's probably not happening, because I already have other plans which I am not going to tell you just yet 😈😏",
-    "Soo I wanted to take something cute for you at first 😊 then I laid back, spread out a little and suddenly cute wasn't really the mood anymore 🤭 I think you'll prefer what I ended up with way more anyways don't you think? 😈",
-    "My lingerie wasn't exactly staying where I put it 😭🤭 and instead of fixing it every time, I decided to just take it off and let me boobs free but tits way better this way don't you think so? 😈",
-    "Turns out I get a little creative when nobody is around 🤭 I tried positions I normally wouldn't and ended up with some very interesting views for you am I right? 😈",
-    "Leaving me alone in lingerie for too long clearly has consequences 🤭 I started playing with myself around, and I got so horny I just did some pics so you'll see the mood I got in 😏🤭",
-	"My hair has a complete mind of its own today, and honestly, the bigger the curls, the more naughty I feel. I was playing around in front of the mirror and things got a little out of hand 🤭🤭",
-    "Big volume means big trouble. So today I decided to put on a little show to give you the perfect distraction from your day 😏😈",
-    "I put on this tiny little loungewear set to relax, but the fabric rubbing against my nipples was driving me crazy. I ended up sliding my hand straight down my shorts while sitting on the couch, and well I need you to continue this story 😏😏",
-    "The house is completely quiet today and I was daydreaming about you that I couldn't keep my hands to myself. I ended up lying across the bed, arching my back, and started projecting your fingers inside of me 😈🥵🥵",
-    "Big volume means big trouble. So today I decided to put on a little show to give you the perfect distraction from your day 😏😈",
-    "This has such a fun vibe to it. 🤭 I don't want to give too much away, so I'll let you see the rest for yourself. I'm curious what ends up catching your attention first.",
-    "All I'm gonna say is I was feeling a little horny when this happened. 😏 The rest can stay a surprise. You'll have to see where things went.",
-    "Okay, I think this might keep you busy for a little while. 🤭💋 I'm kind of curious what your reaction is gonna be once you see everything.",
-    "I'm pretty sure this is gonna stay on your mind for a while. 🤭💖 I wouldn't be surprised if you found yourself coming back to it more than once.",
-    "I keep wondering which part is gonna catch your attention first. 🤭 Somehow I don't think you'll have an easy time choosing.",
-    "I'm not trying to distract you, but if I was, I'd say this would probably do a pretty good job. 🤭😏",
-	"Sometimes it's fun not knowing exactly what you're about to get 😏 everything just feels a little more exciting that way. i won't ruin it... i'll let you enjoy the surprise from start to finish.",
-    "You know that feeling when one thing turns into way more than you expected? Yeah, that's the kind of energy this has. I don't think you'll be done after one quick look. 🤭",
-    "I'm curious if your favorite part ends up being the same as what I'm thinking. 👀 Somehow I don't think it will. Everyone notices something different.",
-    "This isn't the kind of thing I'd rush through. It's way more fun to slow down, enjoy every moment, and see where your attention ends up. 😏💕",
-    "The fun part is wondering where your eyes are gonna land first. 😏💕 I already have a pretty good guess, but I'm keeping that one to myself.",
-    "If you ask me, the best moments are the ones you never see coming. 💕 That's probably all I'll say before I give too much away.",
-    "No reason to overthink anything here. 😉 Just get comfortable, enjoy yourself, and see where your curiosity takes you.💖💖",
-    "I almost don't want to say anything because I like the idea of you going into this without knowing what to expect. 🤭 I think that makes it even more fun.",
-    "Okay, I'm genuinely curious if your first thought is gonna be the same as mine. Somehow I don't think it will, and that's what makes it fun. 😏",
-    "I think the best surprises are the ones that don't need much of an introduction. Sometimes it's better to just enjoy the moment and see where it takes you. 💕",
-    "I have a feeling you're gonna notice something different every time you look. That's what makes this one so much fun.",
-    "I could probably say a lot more, but I'd rather leave a little room for your imagination. I think you'll appreciate it more that way. 😘",
-    "I already know I'd have a hard time picking just one favorite moment. I'm curious if you'll end up feeling the same way. 🤭",
-	
+    const jennieBundlePool = [
 
 	];
 	
 	
-    const annaMassPool = [
-	"Maybe I'm curious for the wrong reasons 🤭 but what kind of outfit makes it impossible for you not to look twice? 😈",
-    "Right, I need an answer 😭 pretty face, nice boobs or a cute butt, where are your eyes going first? 🤭",
-    "Something tells me you have a very specific type 🤭 now I'm wondering how close I am to it and what's your type exactly",
-    "What's something a woman can do that instantly drives you a little crazy?",
-    "Let's say you had my full attention for the entire night 😏 what are we doing first? 🤭",
-    "What kind of compliment would you give me if you actually wanted to impress me and make me blush? 😇",
-    "Someone told me that my eyes look dangerous is that true?",
-    "Do blondes actually have more fun and are more fun being around?",
-    "Tell me something you probably shouldn't 😏 I promise I'll only judge you a tiny bit 🤭",
-    "What do you think our first five minutes alone together would actually be like? 🤭",
-	"Curly hair, a cute smile, and a tiny bit of trouble  I have a feeling today's going to be a lot more fun if you spend it with me 😏",
-    "Just your favorite curly little distraction today ❤️ I've been in such a playful mood and thought you might want to see what I've been up to 🤭",
-    "They always say curly girls keep you guessing I suppose there's only one way to find out if they're right 😏",
-    "I woke up feeling a little too playful today and somehow you were the first person that came to mind 💕",
-    "I think today could use a little less work and a little more fun  come keep me company for a while ❤️",
-    "I have a feeling you're going to like the mood I'm in today  sweet enough to make you smile, playful enough to keep you thinking about me 😏",
-    "Tiny confession I could really use a little attention today I have a feeling you wouldn't mind helping me out ❤️",
-    "I don't know what it is about today I just feel extra playful and maybe a little difficult to ignore 😏",
-    "I feel like my curls have a personality of their own and today they've decided we're causing a little trouble together 😏",
-    "Something tells me today is going to be a good day maybe because I finally have your attention for a little while ❤️",
-	"Random question what do you think I'm wearing right now? I'm curious to see how good your imagination is 😇",
-    "I had a funny little thought about us earlier now I'm wondering if your imagination is as cheeky as mine 😏",
-    "I know exactly what I want today the real question is, do you think you can guess what it is? 🤭😈 ",
-    "Hey handsome are you ready to spend a little time with me today? I think we're going to have some fun 😏",
-    "I've been feeling a little lonely today ❤️ come keep me company for a while, I think we'd have a good time together 🤭",
-    "Come entertain me for a bit I'm in one of those moods where I don't like being left alone for too long 💕",
-    "I have a question I've been wanting to ask you promise you'll give me an honest answer? 😏",
-    "I have a question I've been wanting to ask. Promise you'll give me an honest answer? 😏",
-    "I spent way too long trying to decide which ones I liked best. Now I need your help picking a favorite. 😏❤️",
-    "Some days you just know you're having a good hair day, and somehow everything else falls into place. 😏❤️",
-    "I couldn't stop smiling while taking these. Hopefully that's just as contagious as I think it is. 💕",
-    "You've been a little quiet lately. Should I take that personally? 😜",
-    "I swear everyone notices something different. Now I'm wondering what keeps bringing you back. ",
-    "I've been trying to figure out what your personality is like just from your messages. Am I even close? 😏❤️",
-    "Alright, settle something for me. Are you usually this quiet, or is it just with me? 😉",
-    "Okay, now I'm curious. What's one thing about me you've noticed that nobody else ever mentions? ",
-    "I always wonder what someone's first impression of me was. What was yours? 💕",
-    "You get one question. What are you asking me first? 🤗",
-    "I'm convinced everyone notices something different first. What caught your attention about me? 😏",
+    const jennieMassPool = [
 
-	
-	
 	];
 
     const messageTabs = {
       jessie: { bundlePool: jessieBundlePool, massPool: jessieMassPool },
       curvy: { bundlePool: curvyBundlePool, massPool: curvyMassPool },
-      anna: { bundlePool: annaBundlePool, massPool: annaMassPool }
+      jennie: { bundlePool: jennieBundlePool, massPool: jennieMassPool }
     };
 
     let earnings = {}; let modelNotes = {}; let currentShiftIdx = 0; let currentMessageTab = 'jessie';
