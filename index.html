@@ -1,125 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jucarie T1 Final boss</title>
-  <style>
-    :root { --bg: #09080b; --card-bg: #121016; --accent-red: #574a7d; --accent-glow: #9583b3; --text-main: #ffffff; --text-dim: #8d84a0; --border: #201c29; --input-bg: #08070a;
-      --jessie-color: #b083a8; --curvy-color: #83a3b0; --jennie-color: #a3b083; }
-    body { font-family: 'Quicksand', sans-serif; background: var(--bg); background-image: radial-gradient(circle at top right, #14111c 0%, var(--bg) 60%); color: var(--text-main); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; padding-bottom: 140px; }
-    h1 { font-size: 1.6rem; font-weight: 600; letter-spacing: 3px; margin: 40px 0; text-transform: uppercase; color: var(--accent-glow); text-shadow: 0 0 8px rgba(118, 103, 146, 0.2); }
-    .nav-tabs { display: flex; position: relative; background: var(--card-bg); padding: 6px; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 30px; width: 100%; max-width: 650px; }
-    .nav-btn { flex: 1; padding: 12px; background: transparent; border: none; color: var(--text-dim); font-weight: 600; cursor: pointer; border-radius: 10px; transition: color 0.3s ease; position: relative; z-index: 2; }
-    .nav-btn:hover { color: var(--text-main); }
-    .nav-btn.active { color: white; }
-    .nav-underline { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc(33.333% - 4px); background: var(--accent-red); border-radius: 10px; transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1); z-index: 1; }
-    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 20px; width: 100%; max-width: 800px; box-sizing: border-box; transition: border-color 0.25s ease, transform 0.25s ease; }
-    .card:hover { border-color: var(--accent-glow); transform: translateY(-2px); }
-    .model-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
-    .model-name { font-size: 1.1rem; color: var(--accent-glow); font-weight: 600; }
-    .val-text { color: var(--accent-glow); font-weight: 700; }
-    .label-tag { font-size: 0.7rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; display: block; }
-    .input-box { width: 100%; background: var(--input-bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px; color: var(--text-main); font-family: inherit; resize: none; box-sizing: border-box; transition: border-color 0.2s ease; }
-    .input-box:focus { outline: none; border-color: var(--accent-glow); }
-    .monospace { font-family: 'Consolas', monospace; font-size: 14px; }
-    .msg-item { background: var(--input-bg); padding: 20px; border-radius: 15px; margin-bottom: 15px; border-left: 4px solid var(--accent-red); transition: border-color 0.25s ease, transform 0.2s ease; }
-    .msg-item:hover { transform: translateX(3px); }
-    .msg-text { font-size: 0.95rem; line-height: 1.6; color: #ddd; margin-bottom: 12px; display: block; }
-    .bottom-bar { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; background: rgba(21, 15, 34, 0.95); backdrop-filter: blur(12px); border: 1px solid #2f2840; padding: 15px 25px; border-radius: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
-    .total-val { font-size: 1.6rem; font-weight: 700; color: var(--accent-glow); transition: transform 0.2s ease; }
-    .total-val.pulse { animation: pulseGlow 0.4s ease; }
-    @keyframes pulseGlow { 0% { transform: scale(1); } 50% { transform: scale(1.12); text-shadow: 0 0 12px var(--accent-glow); } 100% { transform: scale(1); } }
-    .btn-finish { background: #1e1a29; color: var(--text-dim); border: 1px solid #2f2840; padding: 10px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.25s ease; }
-    .btn-finish:hover { border-color: var(--accent-glow); color: white; transform: translateY(-1px); }
-    .btn-cycle { background: #1e1a29; border: 1px solid var(--border); color: var(--accent-glow); border-radius: 10px; padding: 0 15px; cursor: pointer; font-size: 1.2rem; transition: all 0.25s ease; }
-    .btn-cycle:hover { border-color: var(--accent-glow); transform: rotate(180deg); }
-    .page { width: 100%; max-width: 800px; display: none; }
-    .page.active { display: block; }
-    .btn-copy-full { background: var(--accent-red); color: white; border: none; width: 100%; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: all 0.25s ease; }
-    .btn-copy-full:hover { filter: brightness(1.15); transform: translateY(-1px); }
-    .pool-count { font-size: 0.7rem; color: var(--text-dim); margin-left: 8px; }
-    .btn-today { background: #1e1a29; border: 1px solid var(--border); color: var(--accent-glow); border-radius: 10px; padding: 7px 14px; cursor: pointer; font-size: 0.75rem; font-weight: 700; margin-top: 8px; letter-spacing: 1px; transition: all 0.2s; }
-    .btn-today:hover { border-color: var(--accent-glow); background: #1a1a1d; }
-    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(25%) sepia(80%) saturate(700%) hue-rotate(320deg) brightness(90%); cursor: pointer; }
-    .sub-nav-tabs { display: flex; gap: 8px; width: 100%; max-width: 800px; margin-bottom: 20px; }
-    .sub-nav-btn { flex: 1; padding: 10px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-dim); font-weight: 600; cursor: pointer; border-radius: 10px; transition: all 0.3s ease; }
-    .sub-nav-btn:hover { color: var(--text-main); border-color: var(--model-color, var(--accent-glow)); }
-    .sub-nav-btn.active { background: var(--model-color, var(--accent-red)); color: white; border-color: var(--model-color, var(--accent-red)); }
-    .sub-nav-btn[data-model="jessie"] { --model-color: var(--jessie-color); }
-    .sub-nav-btn[data-model="curvy"] { --model-color: var(--curvy-color); }
-    .sub-nav-btn[data-model="jennie"] { --model-color: var(--jennie-color); }
-    .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 10px; color: var(--text-dim); text-align: center; gap: 10px; }
-    .empty-state svg { opacity: 0.35; }
-    .empty-state span { font-size: 0.85rem; }
-    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--card-bg); border: 1px solid var(--accent-glow); color: var(--text-main); padding: 12px 22px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 2000; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jucarie T1 Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0f12;--card:#17171c;--card2:#121217;--accent:#dc143c;--glow:#ff4d6d;--text:#f7f2f3;--dim:#aaa0a3;--border:#34262b;--input:#0b0b0f;--good:#8fa66a;--warn:#d98b52;--bad:#dc143c;--jessie:#dc143c;--curvy:#b42346;--jennie:#8f1734;--msg-accent:var(--jessie);--msg-accent-soft:#28151d;--msg-accent-text:#f1c7d0}
+*{box-sizing:border-box}body{font-family:'Quicksand',sans-serif;background:var(--bg);background-image:radial-gradient(circle at top right,#25171c 0%,#171218 34%,var(--bg) 70%);color:var(--text);margin:0;padding:20px 20px 145px;min-height:100vh}button,input,textarea,select{font:inherit}.app{max-width:1000px;margin:auto}h1{font-size:1.55rem;font-weight:700;letter-spacing:3px;margin:28px 0 24px;text-transform:uppercase;color:var(--glow);text-align:center}.nav-tabs{display:flex;position:relative;background:var(--card);padding:6px;border-radius:14px;border:1px solid var(--border);margin:0 auto 20px;max-width:850px;overflow:auto}.nav-btn{flex:1;min-width:110px;padding:12px;background:transparent;border:0;color:var(--dim);font-weight:700;cursor:pointer;border-radius:10px;position:relative;z-index:2}.nav-btn.active{color:white}.nav-underline{position:absolute;top:6px;bottom:6px;left:6px;width:calc(33.333% - 4px);background:var(--accent);border-radius:10px;transition:.25s;z-index:1}.page{display:none}.page.active{display:block}.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;transition:.2s}.card:hover{border-color:#284253}.model-header,.row-between{display:flex;justify-content:space-between;align-items:center;gap:12px}.model-name{font-size:1.05rem;color:var(--glow);font-weight:700}.val-text{color:var(--glow);font-weight:700}.label{font-size:.7rem;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:block;letter-spacing:.08em}.input{width:100%;background:var(--input);border:1px solid var(--border);border-radius:11px;padding:12px;color:var(--text);resize:vertical}.input:focus{outline:none;border-color:var(--glow)}.mono{font-family:Consolas,monospace;font-size:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.btn{background:#201b20;border:1px solid #49353d;color:var(--text);padding:9px 14px;border-radius:10px;font-weight:700;cursor:pointer}.btn:hover{border-color:var(--glow)}.btn.primary{background:var(--accent);border-color:var(--accent)}.btn.good{border-color:var(--good);color:#d7ebdd}.btn.danger{border-color:var(--bad);color:#f0cccc}.btn.small{padding:7px 10px;font-size:.77rem}.btn.full{width:100%}.muted{color:var(--dim);font-size:.82rem}.stat{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px}.stat .num{font-size:1.35rem;font-weight:700;color:var(--glow);margin-top:4px}.progress{height:10px;background:#08070a;border:1px solid var(--border);border-radius:999px;overflow:hidden}.progress>div{height:100%;background:var(--glow);width:0;transition:.3s}.bottom{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);width:min(94%,760px);background:rgba(18,18,22,.96);backdrop-filter:blur(12px);border:1px solid #46343b;padding:12px 18px;border-radius:24px;display:flex;align-items:center;gap:16px;z-index:1000}.bottom .grow{flex:1}.total{font-size:1.4rem;font-weight:700;color:var(--glow)}.subtabs{display:flex;gap:8px;margin-bottom:14px}.subbtn{flex:1;background:var(--card);border:1px solid var(--border);color:var(--dim);padding:10px;border-radius:10px;font-weight:700;cursor:pointer;transition:.2s}.subbtn.active{color:#fff;border-color:var(--model-color);background:color-mix(in srgb,var(--model-color) 55%,#17171c)}.subbtn[data-model=jessie]{--model-color:var(--jessie)}.subbtn[data-model=curvy]{--model-color:var(--curvy)}.subbtn[data-model=jennie]{--model-color:var(--jennie)}#page-messages{--glow:var(--msg-accent);--accent:var(--msg-accent);--border:color-mix(in srgb,var(--msg-accent) 38%,#312b31);--input:color-mix(in srgb,var(--msg-accent-soft) 42%,#0b0b0f);--card:color-mix(in srgb,var(--msg-accent-soft) 30%,#17171c)}#page-messages .card{border-color:color-mix(in srgb,var(--msg-accent) 30%,#312b31)}#page-messages .model-name,#page-messages .val-text{color:var(--msg-accent-text)}#page-messages .input:focus{border-color:var(--msg-accent)}#page-messages .btn{border-color:color-mix(in srgb,var(--msg-accent) 42%,#49353d);color:var(--msg-accent-text)}#page-messages .btn:hover{border-color:var(--msg-accent)}#page-messages .btn.primary{background:var(--msg-accent);border-color:var(--msg-accent);color:#fff}.msg-item{background:color-mix(in srgb,var(--msg-accent-soft) 46%,#0b0b0f);padding:14px;border-radius:13px;margin:10px 0;border-left:4px solid var(--msg-accent);opacity:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}.msg-item:hover{border-color:var(--msg-accent)}.msg-item.used{opacity:.48}.msg-main{min-width:0}.msg-text{line-height:1.55;color:#ece5e3;display:block;margin-bottom:8px;white-space:pre-wrap}.msg-actions{display:flex;flex-direction:column;gap:6px;min-width:92px}.msg-actions .btn{padding:6px 8px;font-size:.7rem;white-space:nowrap}.msg-actions .btn.good{background:color-mix(in srgb,var(--msg-accent) 18%,#17171c)}.pill{display:inline-block;padding:4px 8px;border:1px solid color-mix(in srgb,var(--msg-accent) 38%,var(--border));border-radius:999px;font-size:.68rem;color:var(--msg-accent-text);margin:2px;background:color-mix(in srgb,var(--msg-accent-soft) 55%,transparent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.toolbar .search{flex:1;min-width:180px}.history-item{display:grid;grid-template-columns:110px 1fr auto auto;gap:10px;align-items:center;padding:11px;border-bottom:1px solid var(--border)}.history-item:last-child{border-bottom:0}.bar-row{display:grid;grid-template-columns:130px 1fr 80px;gap:10px;align-items:center;margin:10px 0}.bar{height:10px;background:var(--input);border-radius:999px;overflow:hidden}.bar>div{height:100%;background:var(--glow)}.toast{position:fixed;bottom:105px;left:50%;transform:translateX(-50%) translateY(16px);opacity:0;background:var(--card);border:1px solid var(--glow);padding:10px 16px;border-radius:10px;pointer-events:none;transition:.2s;z-index:3000}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px;z-index:2500}.modal.show{display:flex}.modal-box{width:min(650px,100%);max-height:86vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px}.cmd{position:fixed;top:14%;left:50%;transform:translateX(-50%);width:min(620px,92%);background:var(--card);border:1px solid var(--glow);border-radius:14px;padding:12px;z-index:4000;display:none;box-shadow:0 20px 80px rgba(0,0,0,.5)}.cmd.show{display:block}.cmd-item{padding:10px;border-radius:8px;cursor:pointer}.cmd-item:hover{background:#1c1825}.empty{text-align:center;color:var(--dim);padding:25px}.kbd{border:1px solid var(--border);background:var(--input);border-radius:6px;padding:2px 6px;font-size:.7rem}.danger-text{color:#e2aaaa}.good-text{color:#afd0b9}.hidden{display:none!important}
+@media(max-width:760px){body{padding:10px 10px 140px}.grid2,.grid3,.grid4{grid-template-columns:1fr}.history-item{grid-template-columns:1fr auto}.history-item .hide-mobile{display:none}.bottom{border-radius:18px;flex-wrap:wrap}.bottom .grow{min-width:130px}.bar-row{grid-template-columns:90px 1fr 65px}.nav-underline{display:none}.nav-btn.active{background:var(--accent)}}
+@media(max-width:620px){.msg-item{grid-template-columns:1fr}.msg-actions{flex-direction:row;min-width:0;flex-wrap:wrap}.msg-actions .btn{flex:1;min-width:82px}}</style>
+
+<style>
+  .msg-actions,
+  .message-actions,
+  .msg-tag,
+  .message-tag,
+  .tag,
+  .pill,
+  .badge,
+  .used-badge,
+  .favorite-badge {
+    display: none !important;
+  }
+  .msg-item, .message-card {
+    padding-bottom: 18px !important;
+  }
+</style>
+
+
+<style>
+  #message-search,
+  #search-messages,
+  .message-search,
+  .search-bar,
+  .search-wrap,
+  input[placeholder*="Search" i],
+  input[placeholder*="search" i] {
+    display: none !important;
+  }
+</style>
+
+
+<style>
+  #page-report .btn-copy-full,
+  #page-report button[onclick*="buildReport"] {
+    display: block !important;
+    width: min(360px, 100%) !important;
+    margin: 22px auto 0 !important;
+    padding: 14px 24px !important;
+    border-radius: 14px !important;
+    background: #dc143c !important;
+    color: #fff !important;
+    border: 1px solid #f04a68 !important;
+    font-weight: 700 !important;
+    letter-spacing: .2px !important;
+    text-align: center !important;
+  }
+  #page-report .btn-copy-full:hover,
+  #page-report button[onclick*="buildReport"]:hover {
+    filter: brightness(1.08) !important;
+  }
+</style>
+
 </head>
-<body>
-  <h1> Jucarie T1 </h1>
-  <div class="nav-tabs">
-    <div class="nav-underline" id="nav-underline"></div>
-    <button id="btn-1" class="nav-btn active" onclick="showPage('page-calc', 'btn-1')">Calculators</button>
-    <button id="btn-2" class="nav-btn" onclick="showPage('page-report', 'btn-2')">Shift Report</button>
-    <button id="btn-3" class="nav-btn" onclick="showPage('page-jucarie', 'btn-3')">Messages</button>
-  </div>
+<body><div class="app">
+<h1>Jucarie T1</h1>
+<div class="nav-tabs" id="main-nav">
+<div class="nav-underline" id="nav-underline"></div>
+<button id="btn-calc" class="nav-btn active" data-page="calc">Calculators</button>
+<button id="btn-report" class="nav-btn" data-page="report">Shift Report</button>
+<button id="btn-messages" class="nav-btn" data-page="messages">Messages</button>
+</div>
 
-  <div id="page-calc" class="page active"><div id="model-list"></div></div>
+<section id="page-calc" class="page active">
+<div class="card">
+<div class="row-between"><div><span class="label">Daily goal</span><div class="model-name" id="goal-label">$200.00</div></div><button class="btn small" onclick="openGoalModal()">Set goal</button></div>
+<div style="margin-top:12px"><div class="muted" id="goal-progress-text">$0 / $200</div><div class="progress" style="margin-top:8px"><div id="goal-progress"></div></div></div>
+<div class="hidden"><span id="pace-label"></span><span id="projected-label"></span><span id="timer-label"></span></div>
+</div>
+<div id="model-list"></div>
+</section>
 
-  <div id="page-report" class="page">
-    <div class="card">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <div>
-          <span class="label-tag">Tura</span>
-          <div style="display:flex; gap:8px;">
-            <input type="text" id="shift-time" class="input-box" value="07:00 - 15:00">
-            <button class="btn-cycle" onclick="cycleShift()">&#8635;</button>
-          </div>
-        </div>
-        <div>
-          <span class="label-tag">Custom / VC</span>
-          <input type="text" id="shift-custom" class="input-box" value="">
-        </div>
-      </div>
-      <div style="margin-top: 20px;">
-        <span class="label-tag">Data</span>
-        <input type="date" id="shift-date" class="input-box" style="width:100%; box-sizing:border-box;">
+<section id="page-report" class="page">
+<div class="card"><div class="grid2"><div><span class="label">Tura</span><div style="display:flex;gap:8px"><input id="shift-time" class="input" value="07:00 - 15:00"><button class="btn" onclick="cycleShift()">↻</button></div></div><div><span class="label">Custom / VC</span><input id="shift-custom" class="input"></div></div><div style="margin-top:14px"><span class="label">Data</span><input type="date" id="shift-date" class="input"></div><div style="margin-top:14px"><span class="label">Fani prioritari</span><textarea id="shift-fani" class="input" rows="4"></textarea></div></div>
+<div style="display:flex;justify-content:center;width:100%;margin-top:22px;"><button class="btn primary" style="width:min(360px,100%);" onclick="buildReport(true)">Generate Final Report</button></div>
+<textarea id="output-report" class="input mono" rows="15" style="margin-top:14px" readonly></textarea>
+</section>
 
-      </div>
-      <div style="margin-top: 20px;">
-        <span class="label-tag">Fani prioritari</span>
-        <textarea id="shift-fani" class="input-box" style="height:80px;"></textarea>
-      </div>
-    </div>
-    <button class="btn-copy-full" onclick="buildReport()">Generate Final Report</button>
-    <textarea id="output-report" class="input-box monospace" style="height:300px; margin-top:20px; border-style: dashed;" readonly></textarea>
-  </div>
+<section id="page-messages" class="page">
+<div class="subtabs"><button class="subbtn active" data-model="jessie">Jessie</button><button class="subbtn" data-model="curvy">Curvy</button><button class="subbtn" data-model="jennie">Jennie</button></div>
 
-  <div id="page-jucarie" class="page">
-    <div class="sub-nav-tabs">
-      <button id="sub-btn-jessie" class="sub-nav-btn active" data-model="jessie" onclick="showMessageSubtab('jessie')">Jessie</button>
-      <button id="sub-btn-curvy" class="sub-nav-btn" data-model="curvy" onclick="showMessageSubtab('curvy')">Curvy</button>
-      <button id="sub-btn-jennie" class="sub-nav-btn" data-model="jennie" onclick="showMessageSubtab('jennie')">Jennie</button>
-    </div>
-    <div id="submessage-content"></div>
-  </div>
+<div id="message-content"></div>
+</section>
 
-  <div class="toast" id="toast">Copied to clipboard</div>
+<section id="page-stats" class="page"><div id="stats-content"></div></section>
+<section id="page-history" class="page"><div class="card"><div class="row-between"><span class="model-name">Shift History</span><div><button class="btn small" onclick="exportBackup()">Export backup</button> <button class="btn small" onclick="document.getElementById('import-file').click()">Import backup</button><input id="import-file" type="file" accept="application/json" class="hidden"></div></div><div id="history-list" style="margin-top:12px"></div></div></section>
+</div>
 
-  <div class="bottom-bar">
-    <div style="display:flex; flex-direction:column">
-      <span class="label-tag" style="margin:0; color:#888;">Total Net</span>
-      <span class="total-val" id="grand-total">$0.00</span>
-    </div>
-    <button class="btn-finish" onclick="buildReport(); showPage('page-report', 'btn-2')">Finish Shift</button>
-  </div>
+<div class="bottom"><div class="grow"><span class="label" style="margin:0">Total Net</span><span class="total" id="grand-total">$0.00</span><span id="sales-total" class="hidden">0</span></div></div>
+<div class="toast" id="toast"></div>
 
-  <script>
-    const MODELS = ["JessieJaye", "JessieJayeNew", "JessieJayVip", "XCurvyGoddess", "XCurvyGoddessVip", "Jennie"];
-    const SHIFTS = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
+<div class="modal" id="goal-modal"><div class="modal-box"><div class="row-between"><span class="model-name">Daily Goal</span><button class="btn small" onclick="closeModal('goal-modal')">Close</button></div><input id="goal-input" type="number" min="0" step="1" class="input" style="margin-top:15px"><button class="btn primary full" style="margin-top:10px" onclick="saveGoal()">Save goal</button></div></div>
+<div class="modal" id="message-modal"><div class="modal-box"><div class="row-between"><span class="model-name">Add Message</span><button class="btn small" onclick="closeModal('message-modal')">Close</button></div><div class="grid2" style="margin-top:14px"><div><span class="label">Model</span><select id="editor-model" class="input"><option value="jessie">Jessie</option><option value="curvy">Curvy</option><option value="jennie">Jennie</option></select></div><div><span class="label">Type</span><select id="editor-type" class="input"><option value="mass">Mass</option><option value="bundle">Bundle</option></select></div></div><div style="margin-top:12px"><span class="label">Tags, comma separated</span><input id="editor-tags" class="input" placeholder="morning, flirty, question"></div><div style="margin-top:12px"><span class="label">Message</span><textarea id="editor-text" class="input" rows="8"></textarea></div><button class="btn primary full" style="margin-top:12px" onclick="saveCustomMessage()">Save message</button></div></div>
+<div class="modal" id="history-modal"><div class="modal-box"><div class="row-between"><span class="model-name">Saved Shift</span><button class="btn small" onclick="closeModal('history-modal')">Close</button></div><textarea id="history-detail" class="input mono" rows="20" style="margin-top:12px" readonly></textarea></div></div>
 
+<div class="cmd" id="command-palette"><input id="cmd-search" class="input" placeholder="Type a command..."><div id="cmd-results"></div></div>
+
+<script>
+const MODELS=["JessieJaye","JessieJayeNew","JessieJayVip","XCurvyGoddess","XCurvyGoddessVip","Jennie"];
+const SHIFTS=["07:00 - 15:00","15:00 - 23:00","23:00 - 07:00"];
     const jessieBundlePool = [
 	"I think this dress makes me look a little to good,🤭🤭 I took them knowing you'd love to see it, I feel like my boobs are popping out and my clothes can't hold them anymore, they look good don't you think so? 🤭😏",
     "I have a feeling this dress might become your favorite not because of the dress itself obviously, but the way it looks on me don't you think so? 🤭😇",
@@ -306,171 +296,65 @@
 
 	];
 
-    const messageTabs = {
-      jessie: { bundlePool: jessieBundlePool, massPool: jessieMassPool },
-      curvy: { bundlePool: curvyBundlePool, massPool: curvyMassPool },
-      jennie: { bundlePool: jennieBundlePool, massPool: jennieMassPool }
-    };
 
-    let earnings = {}; let modelNotes = {}; let currentShiftIdx = 0; let currentMessageTab = 'jessie';
-
-    function getTodayValue() {
-      const today = new Date();
-      const dd = String(today.getDate()).padStart(2, '0');
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const yyyy = today.getFullYear();
-      return `${yyyy}-${mm}-${dd}`;
-    }
-
-    function setToday() {
-      document.getElementById('shift-date').value = getTodayValue();
-    }
-
-    function showPage(pId, bId) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(pId).classList.add('active');
-      document.getElementById(bId).classList.add('active');
-      moveNavUnderline(bId);
-    }
-
-    function moveNavUnderline(bId) {
-      const btns = Array.from(document.querySelectorAll('.nav-btn'));
-      const idx = btns.findIndex(b => b.id === bId);
-      const underline = document.getElementById('nav-underline');
-      if (underline && idx >= 0) underline.style.transform = `translateX(${idx * 100}%)`;
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.innerText = message;
-      toast.classList.add('show');
-      clearTimeout(toast._hideTimer);
-      toast._hideTimer = setTimeout(() => toast.classList.remove('show'), 1800);
-    }
-
-    function init() {
-      const list = document.getElementById('model-list');
-      list.innerHTML = "";
-      MODELS.forEach((name) => {
-        const id = name.replace(/\s/g, '');
-        earnings[name] = 0; modelNotes[name] = "";
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `<div class="model-header"><span class="model-name">${name}</span><span id="val-${id}" class="val-text">$0.00</span></div><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"><div><span class="label-tag">Statement</span><textarea class="input-box monospace" style="height:100px;" id="input-${id}" oninput="processInput('${name}')"></textarea></div><div><span class="label-tag">Notes</span><textarea class="input-box" style="height:100px; font-size:13px;" id="notes-${id}" oninput="updateNotes('${name}')"></textarea></div></div>`;
-        list.appendChild(div);
-      });
-      setToday();
-      renderMessageSubtab('jessie');
-      moveNavUnderline('btn-1');
-    }
-
-    function cycleShift() {
-      currentShiftIdx = (currentShiftIdx + 1) % SHIFTS.length;
-      document.getElementById('shift-time').value = SHIFTS[currentShiftIdx];
-    }
-
-    function processInput(name) {
-      const id = name.replace(/\s/g, '');
-      const text = document.getElementById(`input-${id}`).value;
-      const lines = text.split('\n');
-      let total = 0;
-      lines.forEach(line => {
-        const money = line.match(/\$(\d+(\.\d{2})?)/g);
-        if (money && money.length >= 2) total += parseFloat(money[money.length - 1].replace('$', ''));
-      });
-      earnings[name] = total;
-      document.getElementById(`val-${id}`).innerText = `$${total.toFixed(2)}`;
-      let g = 0; for (let k in earnings) g += earnings[k];
-      const totalEl = document.getElementById('grand-total');
-      totalEl.innerText = `$${g.toFixed(2)}`;
-      totalEl.classList.remove('pulse');
-      void totalEl.offsetWidth;
-      totalEl.classList.add('pulse');
-    }
-
-    function updateNotes(name) {
-      const id = name.replace(/\s/g, '');
-      modelNotes[name] = document.getElementById(`notes-${id}`).value;
-    }
-
-    function buildReport() {
-      let r = ""; let grand = 0;
-      MODELS.forEach((name, i) => {
-        const val = earnings[name] || 0; const notes = modelNotes[name] || "";
-        grand += val;
-        r += `Model ${i+1}: ${name}\n`;
-        if (notes.trim() !== "") { r += `${notes}\n`; }
-        r += `---\n`;
-      });
-      const rawDate = document.getElementById('shift-date').value;
-      let formattedDate = rawDate;
-      if (rawDate) {
-        const [y, m, d] = rawDate.split('-');
-        formattedDate = `${d}/${m}/${y}`;
-      }
-      r += `Data: ${formattedDate}\n`;
-      r += `Tura: ${document.getElementById('shift-time').value}\n`;
-      r += `Total net: $${grand.toFixed(2)}\n`;
-      r += `Custom / VC: ${document.getElementById('shift-custom').value}\nFani prioritari:\n${document.getElementById('shift-fani').value}`;
-      document.getElementById('output-report').value = r;
-    }
-
-    function showIceMessages(pool, containerId, count) {
-      const container = document.getElementById(containerId);
-      if (!container) return;
-      container.innerHTML = "";
-      if (!pool || pool.length === 0) {
-        container.innerHTML = `<div class="empty-state">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 4H20V16H7L4 19V4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-          <span>No messages yet for this tab</span>
-        </div>`;
-        return;
-      }
-      const picks = [...pool].sort(() => 0.5 - Math.random()).slice(0, count);
-      picks.forEach(msg => {
-        const div = document.createElement("div"); div.className = "msg-item";
-        div.innerHTML = `<span class="msg-text">${msg}</span><button class="btn-finish" style="width:100%" onclick="navigator.clipboard.writeText(this.previousSibling.textContent.trim()); showToast('Message copied!')">Copy Text</button>`;
-        container.appendChild(div);
-      });
-    }
-
-    function renderMessageSubtab(tabKey) {
-      currentMessageTab = tabKey;
-      document.querySelectorAll('.sub-nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('sub-btn-' + tabKey).classList.add('active');
-
-      const data = messageTabs[tabKey];
-      const content = document.getElementById('submessage-content');
-      content.innerHTML = `
-        <div class="card">
-          <div class="model-header">
-            <span class="model-name">Bundles <span class="pool-count" id="bundle-count"></span></span>
-            <button class="btn-finish" onclick="showIceMessages(messageTabs['${tabKey}'].bundlePool, 'bundleList', 3)">&#127922;</button>
-          </div>
-          <div id="bundleList"></div>
-        </div>
-        <div class="card">
-          <div class="model-header">
-            <span class="model-name">Mass Messages <span class="pool-count" id="mass-count"></span></span>
-            <button class="btn-finish" onclick="showIceMessages(messageTabs['${tabKey}'].massPool, 'massList', 3)">&#127922;</button>
-          </div>
-          <div id="massList"></div>
-        </div>
-      `;
-      document.getElementById('bundle-count').innerText = `(${data.bundlePool.length} messages)`;
-      document.getElementById('mass-count').innerText = `(${data.massPool.length} messages)`;
-      showIceMessages(data.bundlePool, 'bundleList', 3);
-      showIceMessages(data.massPool, 'massList', 3);
-    }
-
-    function showMessageSubtab(tabKey) {
-      renderMessageSubtab(tabKey);
-    }
-
-    window.onload = init;
-  </script>
-</body>
-</html>
+const BASE_POOLS={jessie:{bundle:jessieBundlePool,mass:jessieMassPool},curvy:{bundle:curvyBundlePool,mass:curvyMassPool},jennie:{bundle:jennieBundlePool,mass:jennieMassPool}};
+const KEY='jucarieT1StateV3';
+const defaultState={earnings:{},notes:{},inputs:{},shift:{time:SHIFTS[0],date:'',custom:'',fani:''},goal:200,history:[],favorites:{},used:{},copyCounts:{},customMessages:[],recentShown:{},messageBatches:{},lastPage:'calc',messageTab:'jessie'};
+let state=loadState();
+let currentMessageTab=state.messageTab||'jessie';
+function loadState(){try{return {...structuredClone(defaultState),...(JSON.parse(localStorage.getItem(KEY)||'{}'))}}catch(e){return structuredClone(defaultState)}}
+function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
+function uid(text){let h=2166136261;for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,16777619)}return 'm'+(h>>>0).toString(36)}
+function today(){const d=new Date();return d.toISOString().slice(0,10)}
+function money(n){return '$'+Number(n||0).toFixed(2)}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1500)}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function totalNet(){return Object.values(state.earnings).reduce((a,b)=>a+(+b||0),0)}
+function totalSales(){return Object.values(state.inputs).reduce((sum,text)=>sum+parseSales(text).sales,0)}
+function parseSales(text=''){let total=0,sales=0,gross=0,biggest=0;for(const line of text.split('\n')){const vals=(line.match(/\$(\d+(?:\.\d{1,2})?)/g)||[]).map(v=>+v.slice(1));if(vals.length>=2){const net=vals[vals.length-1];total+=net;sales++;gross+=vals[0];biggest=Math.max(biggest,vals[0])}}return{total,sales,gross,biggest,avg:sales?gross/sales:0}}
+function setTodayIfEmpty(){if(!state.shift.date)state.shift.date=today()}
+function init(){setTodayIfEmpty();MODELS.forEach(n=>{state.earnings[n]??=0;state.notes[n]??='';state.inputs[n]??=''});renderModels();hydrateShift();bind();showPage(state.lastPage||'calc',false);renderMessages();updateAll();setInterval(updatePaceTimer,1000);saveState()}
+function bind(){document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('.subbtn').forEach(b=>b.onclick=()=>{currentMessageTab=b.dataset.model;state.messageTab=currentMessageTab;saveState();renderMessages()});['shift-time','shift-date','shift-custom','shift-fani'].forEach(id=>document.getElementById(id)?.addEventListener('input',saveShiftFields));document.getElementById('import-file')?.addEventListener('change',importBackup);document.addEventListener('keydown',shortcuts);document.getElementById('cmd-search')?.addEventListener('input',renderCommands);document.addEventListener('click',e=>{if(!e.target.closest('#command-palette')&&!e.target.closest('.bottom'))document.getElementById('command-palette')?.classList.remove('show')})}
+function renderModels(){const list=document.getElementById('model-list');list.innerHTML='';MODELS.forEach(name=>{const id=name.replace(/\s/g,'');const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="model-header"><span class="model-name">${name}</span><span class="val-text" id="val-${id}">${money(state.earnings[name])}</span></div><div class="grid2"><div><span class="label">Statement</span><textarea class="input mono" rows="5" id="input-${id}"></textarea></div><div><span class="label">Notes</span><textarea class="input" rows="5" id="notes-${id}"></textarea></div></div>`;list.appendChild(d);const inp=d.querySelector('#input-'+id),notes=d.querySelector('#notes-'+id);inp.value=state.inputs[name];notes.value=state.notes[name];inp.oninput=()=>{state.inputs[name]=inp.value;state.earnings[name]=parseSales(inp.value).total;d.querySelector('#val-'+id).textContent=money(state.earnings[name]);saveState();updateAll()};notes.oninput=()=>{state.notes[name]=notes.value;saveState()}})}
+function hydrateShift(){document.getElementById('shift-time').value=state.shift.time;document.getElementById('shift-date').value=state.shift.date;document.getElementById('shift-custom').value=state.shift.custom;document.getElementById('shift-fani').value=state.shift.fani}
+function saveShiftFields(){state.shift={time:document.getElementById('shift-time').value,date:document.getElementById('shift-date').value,custom:document.getElementById('shift-custom').value,fani:document.getElementById('shift-fani').value};saveState();updatePaceTimer()}
+function cycleShift(){let i=SHIFTS.indexOf(document.getElementById('shift-time').value);i=(i+1)%SHIFTS.length;document.getElementById('shift-time').value=SHIFTS[i];saveShiftFields()}
+function showPage(page,save=true){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+page)?.classList.add('active');const b=document.querySelector(`[data-page="${page}"]`);if(b)b.classList.add('active');const idx=['calc','report','messages'].indexOf(page);document.getElementById('nav-underline').style.transform=`translateX(${Math.max(0,idx)*100}%)`;if(save){state.lastPage=page;saveState()}if(page==='stats')renderStats();if(page==='history')renderHistory();if(page==='messages')renderMessages()}
+function updateAll(){document.getElementById('grand-total').textContent=money(totalNet());document.getElementById('sales-total').textContent=totalSales();updateGoal();updatePaceTimer();if(document.getElementById('page-stats').classList.contains('active'))renderStats()}
+function updateGoal(){const t=totalNet(),g=+state.goal||0,p=g?Math.min(100,t/g*100):0;document.getElementById('goal-label').textContent=money(g);document.getElementById('goal-progress').style.width=p+'%';document.getElementById('goal-progress-text').textContent=`${money(t)} / ${money(g)} (${p.toFixed(0)}%)`}
+function openGoalModal(){document.getElementById('goal-input').value=state.goal;document.getElementById('goal-modal').classList.add('show')}
+function saveGoal(){state.goal=Math.max(0,+document.getElementById('goal-input').value||0);saveState();closeModal('goal-modal');updateGoal()}
+function shiftBounds(){const m=(state.shift.time||'').match(/(\d{2}):(\d{2})\s*-\s*(\d{2}):(\d{2})/);if(!m)return null;const base=new Date((state.shift.date||today())+'T00:00:00');let s=new Date(base),e=new Date(base);s.setHours(+m[1],+m[2],0,0);e.setHours(+m[3],+m[4],0,0);if(e<=s)e.setDate(e.getDate()+1);return{s,e}}
+function updatePaceTimer(){const b=shiftBounds(),now=new Date();if(!b)return;let elapsed=Math.max(0,Math.min(now-b.s,b.e-b.s)),remaining=Math.max(0,b.e-now),hours=elapsed/36e5,pace=hours>0?totalNet()/hours:0,proj=pace*((b.e-b.s)/36e5);document.getElementById('pace-label').textContent=money(pace)+'/h';document.getElementById('projected-label').textContent=money(isFinite(proj)?proj:0);const sec=Math.floor(remaining/1000),hh=String(Math.floor(sec/3600)).padStart(2,'0'),mm=String(Math.floor(sec%3600/60)).padStart(2,'0'),ss=String(sec%60).padStart(2,'0');document.getElementById('timer-label').textContent=now<b.s?'Not started':remaining?`${hh}:${mm}:${ss}`:'Ended'}
+function buildReport(copy=false){let r='',grand=0;MODELS.forEach((n,i)=>{grand+=+state.earnings[n]||0;r+=`Model ${i+1}: ${n}\n`;if((state.notes[n]||'').trim())r+=state.notes[n].trim()+'\n';r+='---\n'});let fd=state.shift.date||'';if(fd){const[y,m,d]=fd.split('-');fd=`${d}/${m}/${y}`}r+=`Data: ${fd}\nTura: ${state.shift.time}\nTotal net: ${money(grand)}\nCustom / VC: ${state.shift.custom}\nFani prioritari:\n${state.shift.fani}`;document.getElementById('output-report').value=r;if(copy){navigator.clipboard?.writeText(r);toast('Report generated and copied')}return r}
+function finishShift(){saveShiftFields();const report=buildReport(false),entry={id:Date.now(),date:state.shift.date,time:state.shift.time,total:totalNet(),sales:totalSales(),earnings:{...state.earnings},report};state.history.unshift(entry);state.history=state.history.slice(0,200);saveState();renderHistory();toast('Shift saved')}
+function allMessages(tab=currentMessageTab){const out=[];for(const type of ['bundle','mass']){BASE_POOLS[tab][type].forEach(text=>out.push({id:uid(tab+type+text),text,type,tags:autoTags(text),custom:false}));state.customMessages.filter(x=>x.model===tab&&x.type===type).forEach(x=>out.push({...x,custom:true}))}return out}
+function autoTags(t){const s=t.toLowerCase(),tags=[];if(/morning|woke up|today/.test(s))tags.push('day');if(/night|bed|sleep/.test(s))tags.push('night');if(/dress/.test(s))tags.push('dress');if(/lingerie/.test(s))tags.push('lingerie');if(/\?/.test(s))tags.push('question');if(/cute|sweet|smile|pretty/.test(s))tags.push('soft');if(/naughty|horny|dirty|cock|tits|ass|clit|cum/.test(s))tags.push('explicit');return tags}
+function usedKey(id){return today()+':'+id}
+function renderMessages(){document.querySelectorAll('.subbtn').forEach(b=>b.classList.toggle('active',b.dataset.model===currentMessageTab));const themes={jessie:{accent:'#dc143c',soft:'#2b1119',text:'#ffd2dc'},curvy:{accent:'#b42346',soft:'#261018',text:'#f4c7d2'},jennie:{accent:'#8f1734',soft:'#211016',text:'#e9bcc7'}};const th=themes[currentMessageTab]||themes.jessie;const page=document.getElementById('page-messages');page.style.setProperty('--msg-accent',th.accent);page.style.setProperty('--msg-accent-soft',th.soft);page.style.setProperty('--msg-accent-text',th.text);const all=allMessages();const content=document.getElementById('message-content');content.innerHTML=['bundle','mass'].map(type=>renderMessageGroup(type,all.filter(m=>m.type===type))).join('')}
+function getMessageBatch(type,msgs){const key=currentMessageTab+':'+type,valid=new Map(msgs.map(m=>[m.id,m]));let ids=(state.messageBatches?.[key]||[]).filter(id=>valid.has(id));let recent=new Set(state.recentShown[key]||[]);if(ids.length<Math.min(3,msgs.length)){let avail=msgs.filter(m=>!ids.includes(m.id)&&!recent.has(m.id));if(avail.length<3-ids.length)avail=msgs.filter(m=>!ids.includes(m.id));avail.sort(()=>Math.random()-.5);ids=[...ids,...avail.slice(0,3-ids.length).map(m=>m.id)]}const picks=ids.map(id=>valid.get(id)).filter(Boolean).slice(0,3);state.messageBatches??={};state.messageBatches[key]=picks.map(x=>x.id);const oldRecent=state.recentShown[key]||[];state.recentShown[key]=[...oldRecent,...picks.map(x=>x.id).filter(id=>!oldRecent.includes(id))].slice(-Math.max(20,msgs.length));saveState();return picks}
+function renderMessageGroup(type,msgs){const title=type==='bundle'?'Bundles':'Mass Messages',picks=getMessageBatch(type,msgs);return `<div class="card"><div class="model-header"><span class="model-name">${title} <span class="muted">(${msgs.length})</span></span><button class="btn small" onclick="reroll('${type}')">Reroll 3</button></div><div id="${type}-list">${picks.length?picks.map(messageHtml).join(''):'<div class="empty">No matching messages</div>'}</div></div>`}
+function messageHtml(m){return `<div class="msg-item" data-id="${m.id}"><div class="msg-main"><span class="msg-text">${esc(m.text)}</span></div></div>`}
+function getMessage(id){return allMessages().find(x=>x.id===id)}
+function copyMessage(id){const m=getMessage(id);if(!m)return;navigator.clipboard?.writeText(m.text);state.copyCounts[id]=(state.copyCounts[id]||0)+1;state.used[usedKey(id)]=true;saveState();renderMessages();toast('Message copied')}
+function toggleFavorite(id){state.favorites[id]=!state.favorites[id];saveState();renderMessages()}
+function toggleUsed(id){const k=usedKey(id);state.used[k]=!state.used[k];saveState();renderMessages()}
+function resetUsedToday(){Object.keys(state.used).filter(k=>k.startsWith(today()+':')).forEach(k=>delete state.used[k]);state.recentShown={};state.messageBatches={};saveState();renderMessages();toast('Used messages reset')}
+function reroll(type){const pool=allMessages().filter(m=>m.type===type);const key=currentMessageTab+':'+type;let recent=new Set(state.recentShown[key]||[]),avail=pool.filter(m=>!recent.has(m.id));if(avail.length<3){recent=new Set();avail=[...pool]}avail.sort(()=>Math.random()-.5);const picks=avail.slice(0,3);state.messageBatches??={};state.messageBatches[key]=picks.map(x=>x.id);state.recentShown[key]=[...(state.recentShown[key]||[]),...picks.map(x=>x.id)].slice(-Math.max(20,pool.length));saveState();const el=document.getElementById(type+'-list');if(el)el.innerHTML=picks.length?picks.map(messageHtml).join(''):'<div class="empty">No messages</div>'}
+function openMessageEditor(){document.getElementById('editor-model').value=currentMessageTab;document.getElementById('editor-text').value='';document.getElementById('editor-tags').value='';document.getElementById('message-modal').classList.add('show')}
+function saveCustomMessage(){const text=document.getElementById('editor-text').value.trim();if(!text)return toast('Message is empty');const model=document.getElementById('editor-model').value,type=document.getElementById('editor-type').value,tags=document.getElementById('editor-tags').value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);state.customMessages.push({id:'c'+Date.now().toString(36),text,model,type,tags});saveState();closeModal('message-modal');currentMessageTab=model;renderMessages();toast('Message saved')}
+function deleteCustom(id){state.customMessages=state.customMessages.filter(x=>x.id!==id);saveState();renderMessages()}
+function renderStats(){const hist=state.history,weekAgo=Date.now()-7*864e5,monthAgo=Date.now()-30*864e5;const week=hist.filter(x=>x.id>=weekAgo).reduce((s,x)=>s+x.total,0),month=hist.filter(x=>x.id>=monthAgo).reduce((s,x)=>s+x.total,0);let modelTotals={};MODELS.forEach(n=>modelTotals[n]=+state.earnings[n]||0);hist.slice(0,30).forEach(h=>MODELS.forEach(n=>modelTotals[n]+=+(h.earnings?.[n]||0)));const max=Math.max(1,...Object.values(modelTotals)),best=Object.entries(modelTotals).sort((a,b)=>b[1]-a[1])[0];document.getElementById('stats-content').innerHTML=`<div class="grid4"><div class="stat"><span class="label">Current shift</span><div class="num">${money(totalNet())}</div></div><div class="stat"><span class="label">7 days</span><div class="num">${money(week)}</div></div><div class="stat"><span class="label">30 days</span><div class="num">${money(month)}</div></div><div class="stat"><span class="label">Best model</span><div class="num" style="font-size:1rem">${best?.[0]||'-'}</div><span class="muted">${money(best?.[1]||0)}</span></div></div><div class="card" style="margin-top:16px"><span class="model-name">Earnings by model</span>${Object.entries(modelTotals).map(([n,v])=>`<div class="bar-row"><span>${n}</span><div class="bar"><div style="width:${v/max*100}%"></div></div><strong>${money(v)}</strong></div>`).join('')}</div><div class="card"><span class="model-name">Recent shifts</span>${hist.slice(0,10).length?hist.slice(0,10).map(h=>`<div class="bar-row"><span>${h.date}</span><div class="bar"><div style="width:${Math.min(100,h.total/Math.max(1,...hist.slice(0,10).map(x=>x.total))*100)}%"></div></div><strong>${money(h.total)}</strong></div>`).join(''):'<div class="empty">No saved shifts yet</div>'}</div>`}
+function renderHistory(){const el=document.getElementById('history-list');el.innerHTML=state.history.length?state.history.map(h=>`<div class="history-item"><strong>${h.date}</strong><span class="hide-mobile">${h.time}</span><span>${money(h.total)} · ${h.sales||0} sales</span><span><button class="btn small" onclick="viewHistory(${h.id})">View</button> <button class="btn small danger" onclick="deleteHistory(${h.id})">Delete</button></span></div>`).join(''):'<div class="empty">No saved shifts yet</div>'}
+function viewHistory(id){const h=state.history.find(x=>x.id===id);if(!h)return;document.getElementById('history-detail').value=h.report;document.getElementById('history-modal').classList.add('show')}
+function deleteHistory(id){state.history=state.history.filter(x=>x.id!==id);saveState();renderHistory();renderStats()}
+function exportBackup(){const blob=new Blob([JSON.stringify({version:3,exportedAt:new Date().toISOString(),state},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`jucarie-t1-backup-${today()}.json`;a.click();URL.revokeObjectURL(a.href)}
+function importBackup(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);state={...structuredClone(defaultState),...(j.state||j)};saveState();location.reload()}catch(e){toast('Invalid backup file')}};r.readAsText(f);ev.target.value=''}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+const commands=[['Go to Calculators',()=>showPage('calc')],['Go to Shift Report',()=>showPage('report')],['Go to Messages',()=>showPage('messages')],['Go to Statistics',()=>showPage('stats')],['Go to History',()=>showPage('history')],['Add message',openMessageEditor],['Set daily goal',openGoalModal],['Generate report',()=>{showPage('report');buildReport(true)}],['Export backup',exportBackup]];
+function toggleCommandPalette(){const e=document.getElementById('command-palette');e.classList.toggle('show');if(e.classList.contains('show')){document.getElementById('cmd-search').value='';renderCommands();setTimeout(()=>document.getElementById('cmd-search').focus(),0)}}
+function renderCommands(){const q=document.getElementById('cmd-search').value.toLowerCase();document.getElementById('cmd-results').innerHTML=commands.filter(c=>c[0].toLowerCase().includes(q)).map((c,i)=>`<div class="cmd-item" onclick="runCommand('${esc(c[0])}')">${esc(c[0])}</div>`).join('')}
+function runCommand(name){const c=commands.find(x=>x[0]===name);document.getElementById('command-palette').classList.remove('show');c?.[1]()}
+function shortcuts(e){if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.altKey&&['1','2','3','4','5'].includes(e.key)){e.preventDefault();showPage(['calc','report','messages','stats','history'][+e.key-1]);return}if(e.key.toLowerCase()==='r'&&document.getElementById('page-messages').classList.contains('active')){reroll('mass');reroll('bundle')}}
+window.onload=init;
+</script></body></html>
