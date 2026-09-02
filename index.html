@@ -359,6 +359,22 @@ textarea.input{resize:vertical;min-height:100px} .mono{font-family:'IBM Plex Mon
 }
 </style>
 
+
+<style>
+.message-card{
+  cursor:pointer !important;
+  transition:border-color .15s ease, background .15s ease, transform .15s ease !important;
+}
+.message-card:hover{
+  border-color:var(--model) !important;
+  background:#0d090b !important;
+  transform:translateY(-1px);
+}
+.message-card:active{
+  transform:translateY(0) scale(.997);
+}
+</style>
+
 </head>
 <body>
 <div class="os">
@@ -649,7 +665,26 @@ function messagesFor(type){return (BASE_POOLS[currentMessageTab]?.[type]||[]).ma
 function renderMessages(){const themes={jessie:{model:'#e11d48',soft:'#2b0c16',text:'#ffd7e0'},curvy:{model:'#b91c3c',soft:'#250b13',text:'#f6c7d2'},jennie:{model:'#881337',soft:'#210a13',text:'#edc2cf'}};const th=themes[currentMessageTab]||themes.jessie;const page=document.getElementById('page-messages');page.style.setProperty('--model',th.model);page.style.setProperty('--model-soft',th.soft);page.style.setProperty('--model-text',th.text);document.querySelectorAll('.model-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.model===currentMessageTab));document.getElementById('message-content').innerHTML=['bundle','mass'].map(type=>renderGroup(type)).join('')}
 function getBatch(type,msgs){const key=currentMessageTab+':'+type;state.messageBatches??={};state.recentShown??={};const map=new Map(msgs.map(m=>[m.id,m]));let ids=(state.messageBatches[key]||[]).filter(id=>map.has(id));const need=Math.min(3,msgs.length);if(ids.length<need){let recent=new Set(state.recentShown[key]||[]);let avail=msgs.filter(m=>!ids.includes(m.id)&&!recent.has(m.id));if(avail.length<need-ids.length)avail=msgs.filter(m=>!ids.includes(m.id));avail.sort(()=>Math.random()-.5);ids=ids.concat(avail.slice(0,need-ids.length).map(m=>m.id))}const picks=ids.map(id=>map.get(id)).filter(Boolean).slice(0,need);state.messageBatches[key]=picks.map(m=>m.id);save();return picks}
 function renderGroup(type){const msgs=messagesFor(type),picks=getBatch(type,msgs),title=type==='bundle'?'Bundles':'Mass Messages';return `<section class="message-column"><div class="message-title"><div><strong>${title}</strong><span class="count">${msgs.length}</span></div><button class="btn small" onclick="reroll('${type}')">Reroll 3</button></div><div id="${type}-list">${picks.map(messageCard).join('')||'<div class="subtitle">No messages yet.</div>'}</div></section>`}
-function messageCard(m){return `<article class="message-card"><p>${esc(m.text)}</p></article>`}
+function messageCard(m){return `<article class="message-card" onclick="copyMessageText(this)" title="Click to copy"><p>${esc(m.text)}</p></article>`}
+function copyMessageText(card){
+  const text=card.querySelector('p')?.textContent||'';
+  if(!text)return;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('Message copied')).catch(()=>fallbackCopy(text));
+  }else{
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text;
+  ta.style.position='fixed';
+  ta.style.opacity='0';
+  document.body.appendChild(ta);
+  ta.select();
+  try{document.execCommand('copy');toast('Message copied')}catch{}
+  ta.remove();
+}
 function reroll(type){const msgs=messagesFor(type),key=currentMessageTab+':'+type;let recent=new Set(state.recentShown[key]||[]),avail=msgs.filter(m=>!recent.has(m.id));if(avail.length<Math.min(3,msgs.length)){recent=new Set();state.recentShown[key]=[];avail=[...msgs]}avail.sort(()=>Math.random()-.5);const picks=avail.slice(0,3);state.messageBatches[key]=picks.map(m=>m.id);state.recentShown[key]=[...(state.recentShown[key]||[]),...picks.map(m=>m.id)].slice(-Math.max(20,msgs.length));save();document.getElementById(type+'-list').innerHTML=picks.map(messageCard).join('')}
 window.addEventListener('load',init);
 
