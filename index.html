@@ -1,113 +1,434 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Jucarie T1 Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jucarie T1 · Final Boss</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0f0f12;--card:#17171c;--card2:#121217;--accent:#dc143c;--glow:#ff4d6d;--text:#f7f2f3;--dim:#aaa0a3;--border:#34262b;--input:#0b0b0f;--good:#8fa66a;--warn:#d98b52;--bad:#dc143c;--jessie:#dc143c;--curvy:#b42346;--jennie:#8f1734;--msg-accent:var(--jessie);--msg-accent-soft:#28151d;--msg-accent-text:#f1c7d0}
-*{box-sizing:border-box}body{font-family:'Quicksand',sans-serif;background:var(--bg);background-image:radial-gradient(circle at top right,#25171c 0%,#171218 34%,var(--bg) 70%);color:var(--text);margin:0;padding:20px 20px 145px;min-height:100vh}button,input,textarea,select{font:inherit}.app{max-width:1000px;margin:auto}h1{font-size:1.55rem;font-weight:700;letter-spacing:3px;margin:28px 0 24px;text-transform:uppercase;color:var(--glow);text-align:center}.nav-tabs{display:flex;position:relative;background:var(--card);padding:6px;border-radius:14px;border:1px solid var(--border);margin:0 auto 20px;max-width:850px;overflow:auto}.nav-btn{flex:1;min-width:110px;padding:12px;background:transparent;border:0;color:var(--dim);font-weight:700;cursor:pointer;border-radius:10px;position:relative;z-index:2}.nav-btn.active{color:white}.nav-underline{position:absolute;top:6px;bottom:6px;left:6px;width:calc(33.333% - 4px);background:var(--accent);border-radius:10px;transition:.25s;z-index:1}.page{display:none}.page.active{display:block}.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-bottom:16px;transition:.2s}.card:hover{border-color:#284253}.model-header,.row-between{display:flex;justify-content:space-between;align-items:center;gap:12px}.model-name{font-size:1.05rem;color:var(--glow);font-weight:700}.val-text{color:var(--glow);font-weight:700}.label{font-size:.7rem;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:block;letter-spacing:.08em}.input{width:100%;background:var(--input);border:1px solid var(--border);border-radius:11px;padding:12px;color:var(--text);resize:vertical}.input:focus{outline:none;border-color:var(--glow)}.mono{font-family:Consolas,monospace;font-size:13px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.btn{background:#201b20;border:1px solid #49353d;color:var(--text);padding:9px 14px;border-radius:10px;font-weight:700;cursor:pointer}.btn:hover{border-color:var(--glow)}.btn.primary{background:var(--accent);border-color:var(--accent)}.btn.good{border-color:var(--good);color:#d7ebdd}.btn.danger{border-color:var(--bad);color:#f0cccc}.btn.small{padding:7px 10px;font-size:.77rem}.btn.full{width:100%}.muted{color:var(--dim);font-size:.82rem}.stat{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:14px}.stat .num{font-size:1.35rem;font-weight:700;color:var(--glow);margin-top:4px}.progress{height:10px;background:#08070a;border:1px solid var(--border);border-radius:999px;overflow:hidden}.progress>div{height:100%;background:var(--glow);width:0;transition:.3s}.bottom{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);width:min(94%,760px);background:rgba(18,18,22,.96);backdrop-filter:blur(12px);border:1px solid #46343b;padding:12px 18px;border-radius:24px;display:flex;align-items:center;gap:16px;z-index:1000}.bottom .grow{flex:1}.total{font-size:1.4rem;font-weight:700;color:var(--glow)}.subtabs{display:flex;gap:8px;margin-bottom:14px}.subbtn{flex:1;background:var(--card);border:1px solid var(--border);color:var(--dim);padding:10px;border-radius:10px;font-weight:700;cursor:pointer;transition:.2s}.subbtn.active{color:#fff;border-color:var(--model-color);background:color-mix(in srgb,var(--model-color) 55%,#17171c)}.subbtn[data-model=jessie]{--model-color:var(--jessie)}.subbtn[data-model=curvy]{--model-color:var(--curvy)}.subbtn[data-model=jennie]{--model-color:var(--jennie)}#page-messages{--glow:var(--msg-accent);--accent:var(--msg-accent);--border:color-mix(in srgb,var(--msg-accent) 38%,#312b31);--input:color-mix(in srgb,var(--msg-accent-soft) 42%,#0b0b0f);--card:color-mix(in srgb,var(--msg-accent-soft) 30%,#17171c)}#page-messages .card{border-color:color-mix(in srgb,var(--msg-accent) 30%,#312b31)}#page-messages .model-name,#page-messages .val-text{color:var(--msg-accent-text)}#page-messages .input:focus{border-color:var(--msg-accent)}#page-messages .btn{border-color:color-mix(in srgb,var(--msg-accent) 42%,#49353d);color:var(--msg-accent-text)}#page-messages .btn:hover{border-color:var(--msg-accent)}#page-messages .btn.primary{background:var(--msg-accent);border-color:var(--msg-accent);color:#fff}.msg-item{background:color-mix(in srgb,var(--msg-accent-soft) 46%,#0b0b0f);padding:14px;border-radius:13px;margin:10px 0;border-left:4px solid var(--msg-accent);opacity:1;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}.msg-item:hover{border-color:var(--msg-accent)}.msg-item.used{opacity:.48}.msg-main{min-width:0}.msg-text{line-height:1.55;color:#ece5e3;display:block;margin-bottom:8px;white-space:pre-wrap}.msg-actions{display:flex;flex-direction:column;gap:6px;min-width:92px}.msg-actions .btn{padding:6px 8px;font-size:.7rem;white-space:nowrap}.msg-actions .btn.good{background:color-mix(in srgb,var(--msg-accent) 18%,#17171c)}.pill{display:inline-block;padding:4px 8px;border:1px solid color-mix(in srgb,var(--msg-accent) 38%,var(--border));border-radius:999px;font-size:.68rem;color:var(--msg-accent-text);margin:2px;background:color-mix(in srgb,var(--msg-accent-soft) 55%,transparent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:end}.toolbar .search{flex:1;min-width:180px}.history-item{display:grid;grid-template-columns:110px 1fr auto auto;gap:10px;align-items:center;padding:11px;border-bottom:1px solid var(--border)}.history-item:last-child{border-bottom:0}.bar-row{display:grid;grid-template-columns:130px 1fr 80px;gap:10px;align-items:center;margin:10px 0}.bar{height:10px;background:var(--input);border-radius:999px;overflow:hidden}.bar>div{height:100%;background:var(--glow)}.toast{position:fixed;bottom:105px;left:50%;transform:translateX(-50%) translateY(16px);opacity:0;background:var(--card);border:1px solid var(--glow);padding:10px 16px;border-radius:10px;pointer-events:none;transition:.2s;z-index:3000}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px;z-index:2500}.modal.show{display:flex}.modal-box{width:min(650px,100%);max-height:86vh;overflow:auto;background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px}.cmd{position:fixed;top:14%;left:50%;transform:translateX(-50%);width:min(620px,92%);background:var(--card);border:1px solid var(--glow);border-radius:14px;padding:12px;z-index:4000;display:none;box-shadow:0 20px 80px rgba(0,0,0,.5)}.cmd.show{display:block}.cmd-item{padding:10px;border-radius:8px;cursor:pointer}.cmd-item:hover{background:#1c1825}.empty{text-align:center;color:var(--dim);padding:25px}.kbd{border:1px solid var(--border);background:var(--input);border-radius:6px;padding:2px 6px;font-size:.7rem}.danger-text{color:#e2aaaa}.good-text{color:#afd0b9}.hidden{display:none!important}
-@media(max-width:760px){body{padding:10px 10px 140px}.grid2,.grid3,.grid4{grid-template-columns:1fr}.history-item{grid-template-columns:1fr auto}.history-item .hide-mobile{display:none}.bottom{border-radius:18px;flex-wrap:wrap}.bottom .grow{min-width:130px}.bar-row{grid-template-columns:90px 1fr 65px}.nav-underline{display:none}.nav-btn.active{background:var(--accent)}}
-@media(max-width:620px){.msg-item{grid-template-columns:1fr}.msg-actions{flex-direction:row;min-width:0;flex-wrap:wrap}.msg-actions .btn{flex:1;min-width:82px}}</style>
+:root{
+  --bg:#050506;
+  --panel:#0b0b0e;
+  --panel2:#111116;
+  --panel3:#08080a;
+  --line:#292127;
+  --text:#f8f5f6;
+  --muted:#95898e;
+  --violet:#dc143c;
+  --violet2:#ff5a78;
+  --cyan:#b1122f;
+  --cyan2:#7d0d22;
+  --soft:#220b12;
+  --green:#d84a65;
+  --shadow:0 24px 70px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;background:
+  radial-gradient(circle at 15% -10%,rgba(220,20,60,.16),transparent 28%),
+  radial-gradient(circle at 90% 0%,rgba(177,18,47,.08),transparent 24%),
+  linear-gradient(180deg,#070708 0%,#030304 100%);
+  color:var(--text);font-family:'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh}
+button,input,textarea{font:inherit} button{cursor:pointer}
+.os{width:min(1380px,calc(100% - 24px));margin:12px auto 40px}
+.topbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;background:rgba(12,14,28,.9);backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:18px;padding:10px 12px;box-shadow:var(--shadow);position:sticky;top:10px;z-index:20}
+.logo{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#111012;border:1px solid #30242a;border-radius:12px}
+.logo-mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#ff315b,#8f102a);box-shadow:0 0 24px rgba(220,20,60,.28)}
+.logo strong{font-size:.86rem;letter-spacing:.08em} .logo small{display:block;color:var(--muted);font-size:.62rem;margin-top:2px}
+.nav{display:flex;justify-content:center;gap:6px}
+.nav button{border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 16px;border-radius:10px;font-weight:800;font-size:.8rem}
+.nav button:hover{background:#111012;color:#fff;border-color:#30242a}
+.nav button.active{background:linear-gradient(180deg,#251016,#180b0f);color:#fff;border-color:#5b1b2a;box-shadow:inset 0 -2px 0 var(--violet)}
+.total-chip{min-width:150px;padding:8px 12px;border-radius:12px;background:#0a090b;border:1px solid #3a1c24;text-align:right}
+.total-chip span{display:block;color:#c07a89;font-size:.61rem;text-transform:uppercase;letter-spacing:.14em}
+.total-chip strong{font-family:'IBM Plex Mono';font-size:1.05rem;color:var(--cyan)}
+.main{padding:22px 2px 10px}
+.page{display:none} .page.active{display:block}
+.hero{display:flex;justify-content:space-between;align-items:end;gap:18px;padding:12px 4px 20px}
+.kicker{font-family:'IBM Plex Mono';color:var(--violet2);font-size:.67rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+h1{margin:0;font-size:clamp(2rem,4vw,3.3rem);letter-spacing:-.055em;line-height:.98}
+.sub{color:var(--muted);font-size:.86rem;margin-top:8px}
+.mobile-total{display:none;font-family:'IBM Plex Mono';color:var(--cyan)}
+
+/* calculator = ledger */
+.ledger{display:grid;grid-template-columns:260px minmax(0,1fr);gap:14px;align-items:start}
+.goal-panel{position:sticky;top:94px;background:linear-gradient(180deg,#141012,#0c0f1d);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.goal-panel .goal-number{font-family:'IBM Plex Mono';font-size:1.25rem;font-weight:600}
+.goal-panel .goal-meta{color:var(--muted);font-size:.75rem;margin-top:5px}
+.progress{height:8px;border-radius:999px;background:#060607;border:1px solid #261c20;overflow:hidden;margin:16px 0}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--cyan));transition:.22s}
+.goal-panel .btn{width:100%}
+.models{display:grid;gap:10px}
+.model-card{display:grid;grid-template-columns:190px minmax(0,1fr);background:#0b0b0e;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.model-top{padding:17px 16px;background:linear-gradient(180deg,#120d0f,#0d0a0b);border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.model-top strong{font-size:.86rem} .model-total{font-family:'IBM Plex Mono';font-size:1.05rem;color:var(--cyan)}
+.model-body{display:grid;grid-template-columns:1.25fr .75fr;gap:10px;padding:12px}
+.field label{display:block;color:#7e7478;font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;margin:0 0 6px 2px;font-weight:800}
+.input{width:100%;background:#070708;border:1px solid #2c2025;border-radius:10px;color:#f4f1f2;padding:10px 11px;outline:none}
+.input:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(124,92,255,.1)}
+textarea.input{resize:vertical;min-height:100px} .mono{font-family:'IBM Plex Mono';font-size:.75rem;line-height:1.5}
+.btn{border:1px solid #352a2f;background:#14182c;color:#f3eff0;padding:10px 13px;border-radius:10px;font-weight:800}
+.btn:hover{border-color:#6b3541;background:#181d34}
+.btn.primary{background:linear-gradient(135deg,var(--violet),#6546e8);border-color:#8e76ff;color:white}
+.btn.small{padding:8px 10px;font-size:.74rem}
+
+/* report = terminal */
+.report-console{background:#050506;border:1px solid #2d2327;border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+.console-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#120d0f;border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:6px} .dots i{width:8px;height:8px;border-radius:50%;background:#554b4f} .dots i:nth-child(1){background:#dc143c} .dots i:nth-child(2){background:#b1122f}
+.console-title{font-family:'IBM Plex Mono';font-size:.66rem;color:#968b8f;letter-spacing:.12em}
+.report-grid{display:grid;grid-template-columns:360px minmax(0,1fr);min-height:520px}
+.report-form{padding:18px;border-right:1px solid var(--line);display:grid;align-content:start;gap:14px;background:#09090b}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px} .shift-row{display:flex;gap:7px} .shift-row .input{flex:1}
+.generate-row{display:flex;justify-content:center;margin-top:4px} .generate-row .btn{width:100%}
+.report-paper{padding:0;background:#040405;display:flex;flex-direction:column}
+.paper-head{padding:12px 14px;border-bottom:1px dashed #252b44;font-family:'IBM Plex Mono';font-size:.66rem;color:#756b6f;letter-spacing:.12em}
+.report-paper textarea{flex:1;min-height:440px;width:100%;border:0;outline:0;resize:none;background:transparent;color:#d3cbce;padding:18px;font-family:'IBM Plex Mono';font-size:.76rem;line-height:1.65}
+
+/* messages = board */
+.message-shell{--model:var(--violet);--model-soft:#220b12;--model-text:#ffd7df}
+.model-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.model-tabs button{border:1px solid #2d2327;background:#0b0b0e;color:#887d81;padding:12px;border-radius:12px;font-weight:900}
+.model-tabs button.active{background:var(--model-soft);color:var(--model-text);border-color:color-mix(in srgb,var(--model) 50%,#2d2327);box-shadow:inset 0 -2px 0 var(--model)}
+.message-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.message-column{background:#08080a;border:1px solid color-mix(in srgb,var(--model) 22%,#2d2327);border-radius:18px;padding:14px;min-height:100%}
+.message-title{display:flex;justify-content:space-between;align-items:center;padding:2px 2px 10px}
+.message-title strong{font-size:.9rem} .count{font-family:'IBM Plex Mono';font-size:.65rem;color:var(--muted);margin-left:6px}
+.message-title .btn{color:var(--model-text);border-color:color-mix(in srgb,var(--model) 40%,#2d2327)}
+.message-card{position:relative;background:#060607;border:1px solid #2a2024;border-radius:13px;padding:15px 16px 15px 18px;margin-top:9px;overflow:hidden}
+.message-card:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--model),color-mix(in srgb,var(--model) 50%,#000))}
+.message-card p{margin:0;color:#ddd7d9;line-height:1.58;font-size:.86rem;white-space:pre-wrap}
+
+.toast{position:fixed;right:18px;bottom:18px;background:#111012;border:1px solid #5a2734;color:#fff;padding:10px 13px;border-radius:10px;opacity:0;transform:translateY(8px);pointer-events:none;transition:.18s;z-index:40}
+.toast.show{opacity:1;transform:none}
+.modal{position:fixed;inset:0;background:rgba(3,4,10,.78);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal.show{display:flex} .modal-box{width:min(410px,100%);background:#110d0f;border:1px solid #4a1f29;border-radius:18px;padding:18px;box-shadow:var(--shadow)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+
+@media(max-width:980px){
+  .topbar{grid-template-columns:1fr} .logo{justify-content:center} .nav{overflow-x:auto;justify-content:flex-start}
+  .nav button{min-width:130px} .total-chip{display:none}
+  .ledger{grid-template-columns:1fr} .goal-panel{position:static}
+  .model-card{grid-template-columns:1fr} .model-top{border-right:0;border-bottom:1px solid var(--line);flex-direction:row}
+  .report-grid{grid-template-columns:1fr} .report-form{border-right:0;border-bottom:1px solid var(--line)}
+}
+@media(max-width:720px){
+  .os{width:calc(100% - 12px);margin:6px auto 28px} .topbar{top:6px;border-radius:14px}
+  .hero{align-items:flex-start;flex-direction:column} .mobile-total{display:block}
+  .model-body,.split,.message-grid{grid-template-columns:1fr} .model-tabs{grid-template-columns:1fr}
+}
+</style>
 
 <style>
-  .msg-actions,
-  .message-actions,
-  .msg-tag,
-  .message-tag,
-  .tag,
-  .pill,
-  .badge,
-  .used-badge,
-  .favorite-badge {
-    display: none !important;
-  }
-  .msg-item, .message-card {
-    padding-bottom: 18px !important;
-  }
+.logo .night-word{
+  color:#dc143c !important;
+}
+.logo strong{
+  color:#f3eef0 !important;
+}
 </style>
 
 
 <style>
-  #message-search,
-  #search-messages,
-  .message-search,
-  .search-bar,
-  .search-wrap,
-  input[placeholder*="Search" i],
-  input[placeholder*="search" i] {
-    display: none !important;
-  }
+:root{
+  --violet:#dc143c !important;
+  --violet2:#ff5a78 !important;
+  --cyan:#b1122f !important;
+  --cyan2:#7d0d22 !important;
+  --text:#f5f2f3 !important;
+  --muted:#8d8588 !important;
+  --line:#2d2327 !important;
+}
+.logo-mark{
+  background:linear-gradient(145deg,#dc143c,#7d0d22) !important;
+  box-shadow:0 0 24px rgba(220,20,60,.24) !important;
+}
+.logo .night-word{
+  color:#dc143c !important;
+}
+.logo strong,
+.logo small{
+  color:#f5f2f3 !important;
+}
+.total-chip strong,
+.mobile-total,
+.model-total{
+  color:#ff5a78 !important;
+}
 </style>
 
 
 <style>
-  #page-report .btn-copy-full,
-  #page-report button[onclick*="buildReport"] {
-    display: block !important;
-    width: min(360px, 100%) !important;
-    margin: 22px auto 0 !important;
-    padding: 14px 24px !important;
-    border-radius: 14px !important;
-    background: #dc143c !important;
-    color: #fff !important;
-    border: 1px solid #f04a68 !important;
-    font-weight: 700 !important;
-    letter-spacing: .2px !important;
-    text-align: center !important;
+.logo{
+  background:linear-gradient(135deg,#16090d,#0d0709) !important;
+  border-color:#3a171f !important;
+}
+.logo-mark{
+  background:linear-gradient(145deg,#dc143c,#7d0d22) !important;
+  box-shadow:0 0 24px rgba(220,20,60,.22) !important;
+}
+.logo strong{
+  color:#f5f2f3 !important;
+}
+.logo small{
+  color:#8f7f84 !important;
+}
+.topbar{
+  background:rgba(10,7,8,.94) !important;
+  border-color:#2d2327 !important;
+}
+</style>
+
+
+<style>
+.goal-panel{
+  background:linear-gradient(180deg,#12090c,#0b0708) !important;
+  border-color:#32161d !important;
+  box-shadow:0 18px 50px rgba(0,0,0,.32) !important;
+}
+.goal-panel .kicker{
+  color:#ff5a78 !important;
+}
+.goal-panel .goal-number{
+  color:#f5f2f3 !important;
+}
+.goal-panel .goal-meta{
+  color:#9a858b !important;
+}
+.progress{
+  background:#160c0f !important;
+  border-color:#351820 !important;
+}
+.progress > div{
+  background:linear-gradient(90deg,#7d0d22,#dc143c,#ff5a78) !important;
+}
+.goal-panel .btn{
+  background:#160d10 !important;
+  border-color:#3a1b23 !important;
+  color:#f3eef0 !important;
+}
+.goal-panel .btn:hover{
+  background:#211014 !important;
+  border-color:#5a2330 !important;
+}
+</style>
+
+
+<style>
+#page-report .generate-row .btn.primary,
+#page-report button[onclick*="buildReport"]{
+  width:100% !important;
+  min-height:46px !important;
+  background:#dc143c !important;
+  border-color:#ef3158 !important;
+  color:#fff !important;
+  box-shadow:0 8px 22px rgba(220,20,60,.16) !important;
+  border-radius:10px !important;
+}
+#page-report .generate-row .btn.primary:hover,
+#page-report button[onclick*="buildReport"]:hover{
+  background:#b1122f !important;
+  border-color:#dc143c !important;
+}
+</style>
+
+
+<style>
+#page-report .report-grid{
+  grid-template-columns:460px minmax(0,1fr) !important;
+}
+#page-report .report-form{
+  padding:22px !important;
+}
+#page-report .split{
+  grid-template-columns:1.15fr .85fr !important;
+  gap:12px !important;
+}
+#page-report .shift-row{
+  gap:8px !important;
+}
+#page-report .shift-row .input{
+  min-width:0 !important;
+}
+#page-report .console-head{
+  justify-content:flex-end !important;
+}
+#page-report .generate-row{
+  margin-top:8px !important;
+}
+@media (max-width:980px){
+  #page-report .report-grid{
+    grid-template-columns:1fr !important;
   }
-  #page-report .btn-copy-full:hover,
-  #page-report button[onclick*="buildReport"]:hover {
-    filter: brightness(1.08) !important;
-  }
+}
+</style>
+
+
+<style>
+.logo{
+  padding:10px 16px !important;
+  gap:12px !important;
+}
+.logo .brand-title{
+  display:block !important;
+  color:#f7f2f4 !important;
+  font-size:1.28rem !important;
+  font-weight:900 !important;
+  letter-spacing:-.03em !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+.logo-mark{
+  width:34px !important;
+  height:34px !important;
+  border-radius:10px !important;
+}
+</style>
+
+
+<style>
+.logo .brand-title{
+  font-size:1.08rem !important;
+}
+.logo-mark{
+  width:30px !important;
+  height:30px !important;
+  border-radius:9px !important;
+}
+.logo{
+  padding:9px 14px !important;
+  gap:10px !important;
+}
+</style>
+
+
+<style>
+.logo .brand-title{
+  font-size:.96rem !important;
+}
+.logo-mark{
+  width:28px !important;
+  height:28px !important;
+  border-radius:8px !important;
+}
+.logo{
+  padding:8px 12px !important;
+  gap:9px !important;
+}
+</style>
+
+
+<style>
+.logo .brand-title{
+  font-family:'Orbitron', sans-serif !important;
+  font-size:.88rem !important;
+  font-weight:800 !important;
+  letter-spacing:.12em !important;
+  text-transform:uppercase !important;
+  color:#f7f2f4 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+</style>
+
+
+<style>
+.logo .brand-title{
+  font-family:'Patrick Hand', cursive !important;
+  font-size:1.05rem !important;
+  font-weight:400 !important;
+  letter-spacing:.06em !important;
+  text-transform:uppercase !important;
+  color:#f7f2f4 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+</style>
+
+
+<style>
+.logo .brand-title{
+  font-family:'Space Grotesk', sans-serif !important;
+  font-size:.96rem !important;
+  font-weight:700 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+  color:#f7f2f4 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
 </style>
 
 </head>
-<body><div class="app">
-<h1>Jucarie T1</h1>
-<div class="nav-tabs" id="main-nav">
-<div class="nav-underline" id="nav-underline"></div>
-<button id="btn-calc" class="nav-btn active" data-page="calc">Calculators</button>
-<button id="btn-report" class="nav-btn" data-page="report">Shift Report</button>
-<button id="btn-messages" class="nav-btn" data-page="messages">Messages</button>
+<body>
+<div class="os">
+  <header class="topbar">
+    <div class="logo"><span class="logo-mark"></span><div><strong class="brand-title">JUCARIE T1</strong></div></div>
+    <nav class="nav">
+      <button class="active" data-page="calc">Calculator</button>
+      <button data-page="report">Report Final Shift</button>
+      <button data-page="messages">Messages Mass / Bundles</button>
+    </nav>
+    <div class="total-chip"><span>Total net</span><strong id="grand-total">$0.00</strong></div>
+  </header>
+
+  <main class="main">
+    <section id="page-calc" class="page active">
+      <div class="hero">
+        <div class="mobile-total" id="mobile-total">$0.00</div>
+      </div>
+      <div class="ledger">
+        <aside class="goal-panel">
+          <div class="kicker">Daily target</div>
+          <div class="goal-number" id="goal-label">$200.00 goal</div>
+          <div class="goal-meta" id="goal-progress-text">$0.00 of $200.00</div>
+          <div class="progress"><div id="goal-progress"></div></div>
+          <button class="btn small" onclick="openGoal()">Change target</button>
+        </aside>
+        <div id="model-list" class="models"></div>
+      </div>
+    </section>
+
+    <section id="page-report" class="page">
+      <div class="report-console">
+        <div class="console-head"><div class="console-title">T1 REPORT SESSION</div></div>
+        <div class="report-grid">
+          <div class="report-form">
+            <div class="split">
+              <div class="field"><label>Shift</label><div class="shift-row"><input id="shift-time" class="input"><button class="btn" onclick="cycleShift()">↻</button></div></div>
+              <div class="field"><label>Custom / VC</label><input id="shift-custom" class="input"></div>
+            </div>
+            <div class="field"><label>Date</label><input type="date" id="shift-date" class="input"></div>
+            <div class="field"><label>Priority fans</label><textarea id="shift-fani" class="input" rows="9"></textarea></div>
+            <div class="generate-row"><button class="btn primary" onclick="buildReport()">Generate Final Report</button></div>
+          </div>
+          <div class="report-paper"><div class="paper-head">OUTPUT / FINAL_REPORT.TXT</div><textarea id="output-report" readonly placeholder="Generated report appears here..."></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-messages" class="page message-shell">
+      <div class="model-tabs">
+        <button class="active" data-model="jessie">Jessie</button>
+        <button data-model="curvy">Curvy</button>
+        <button data-model="jennie">Jennie</button>
+      </div>
+      <div id="message-content" class="message-grid"></div>
+    </section>
+  </main>
 </div>
 
-<section id="page-calc" class="page active">
-<div class="card">
-<div class="row-between"><div><span class="label">Daily goal</span><div class="model-name" id="goal-label">$200.00</div></div><button class="btn small" onclick="openGoalModal()">Set goal</button></div>
-<div style="margin-top:12px"><div class="muted" id="goal-progress-text">$0 / $200</div><div class="progress" style="margin-top:8px"><div id="goal-progress"></div></div></div>
-<div class="hidden"><span id="pace-label"></span><span id="projected-label"></span><span id="timer-label"></span></div>
-</div>
-<div id="model-list"></div>
-</section>
-
-<section id="page-report" class="page">
-<div class="card"><div class="grid2"><div><span class="label">Tura</span><div style="display:flex;gap:8px"><input id="shift-time" class="input" value="07:00 - 15:00"><button class="btn" onclick="cycleShift()">↻</button></div></div><div><span class="label">Custom / VC</span><input id="shift-custom" class="input"></div></div><div style="margin-top:14px"><span class="label">Data</span><input type="date" id="shift-date" class="input"></div><div style="margin-top:14px"><span class="label">Fani prioritari</span><textarea id="shift-fani" class="input" rows="4"></textarea></div></div>
-<div style="display:flex;justify-content:center;width:100%;margin-top:22px;"><button class="btn primary" style="width:min(360px,100%);" onclick="buildReport(true)">Generate Final Report</button></div>
-<textarea id="output-report" class="input mono" rows="15" style="margin-top:14px" readonly></textarea>
-</section>
-
-<section id="page-messages" class="page">
-<div class="subtabs"><button class="subbtn active" data-model="jessie">Jessie</button><button class="subbtn" data-model="curvy">Curvy</button><button class="subbtn" data-model="jennie">Jennie</button></div>
-
-<div id="message-content"></div>
-</section>
-
-<section id="page-stats" class="page"><div id="stats-content"></div></section>
-<section id="page-history" class="page"><div class="card"><div class="row-between"><span class="model-name">Shift History</span><div><button class="btn small" onclick="exportBackup()">Export backup</button> <button class="btn small" onclick="document.getElementById('import-file').click()">Import backup</button><input id="import-file" type="file" accept="application/json" class="hidden"></div></div><div id="history-list" style="margin-top:12px"></div></div></section>
-</div>
-
-<div class="bottom"><div class="grow"><span class="label" style="margin:0">Total Net</span><span class="total" id="grand-total">$0.00</span><span id="sales-total" class="hidden">0</span></div></div>
 <div class="toast" id="toast"></div>
-
-<div class="modal" id="goal-modal"><div class="modal-box"><div class="row-between"><span class="model-name">Daily Goal</span><button class="btn small" onclick="closeModal('goal-modal')">Close</button></div><input id="goal-input" type="number" min="0" step="1" class="input" style="margin-top:15px"><button class="btn primary full" style="margin-top:10px" onclick="saveGoal()">Save goal</button></div></div>
-<div class="modal" id="message-modal"><div class="modal-box"><div class="row-between"><span class="model-name">Add Message</span><button class="btn small" onclick="closeModal('message-modal')">Close</button></div><div class="grid2" style="margin-top:14px"><div><span class="label">Model</span><select id="editor-model" class="input"><option value="jessie">Jessie</option><option value="curvy">Curvy</option><option value="jennie">Jennie</option></select></div><div><span class="label">Type</span><select id="editor-type" class="input"><option value="mass">Mass</option><option value="bundle">Bundle</option></select></div></div><div style="margin-top:12px"><span class="label">Tags, comma separated</span><input id="editor-tags" class="input" placeholder="morning, flirty, question"></div><div style="margin-top:12px"><span class="label">Message</span><textarea id="editor-text" class="input" rows="8"></textarea></div><button class="btn primary full" style="margin-top:12px" onclick="saveCustomMessage()">Save message</button></div></div>
-<div class="modal" id="history-modal"><div class="modal-box"><div class="row-between"><span class="model-name">Saved Shift</span><button class="btn small" onclick="closeModal('history-modal')">Close</button></div><textarea id="history-detail" class="input mono" rows="20" style="margin-top:12px" readonly></textarea></div></div>
-
-<div class="cmd" id="command-palette"><input id="cmd-search" class="input" placeholder="Type a command..."><div id="cmd-results"></div></div>
+<div class="modal" id="goal-modal">
+  <div class="modal-box">
+    <div class="modal-head"><strong>Daily target</strong><button class="btn small" onclick="closeGoal()">Close</button></div>
+    <div class="field"><label>Target amount</label><input id="goal-input" type="number" min="0" step="1" class="input"></div>
+    <button class="btn primary" style="width:100%;margin-top:12px" onclick="saveGoal()">Save target</button>
+  </div>
+</div>
 
 <script>
+
 const MODELS=["JessieJaye","JessieJayeNew","JessieJayVip","XCurvyGoddess","XCurvyGoddessVip","Jennie"];
 const SHIFTS=["07:00 - 15:00","15:00 - 23:00","23:00 - 07:00"];
     const jessieBundlePool = [
@@ -297,64 +618,41 @@ const SHIFTS=["07:00 - 15:00","15:00 - 23:00","23:00 - 07:00"];
 	];
 
 
+
 const BASE_POOLS={jessie:{bundle:jessieBundlePool,mass:jessieMassPool},curvy:{bundle:curvyBundlePool,mass:curvyMassPool},jennie:{bundle:jennieBundlePool,mass:jennieMassPool}};
 const KEY='jucarieT1StateV3';
-const defaultState={earnings:{},notes:{},inputs:{},shift:{time:SHIFTS[0],date:'',custom:'',fani:''},goal:200,history:[],favorites:{},used:{},copyCounts:{},customMessages:[],recentShown:{},messageBatches:{},lastPage:'calc',messageTab:'jessie'};
+const defaults={earnings:{},notes:{},inputs:{},shift:{time:SHIFTS[0],date:'',custom:'',fani:''},goal:200,recentShown:{},messageBatches:{},lastPage:'calc',messageTab:'jessie'};
 let state=loadState();
 let currentMessageTab=state.messageTab||'jessie';
-function loadState(){try{return {...structuredClone(defaultState),...(JSON.parse(localStorage.getItem(KEY)||'{}'))}}catch(e){return structuredClone(defaultState)}}
-function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
-function uid(text){let h=2166136261;for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,16777619)}return 'm'+(h>>>0).toString(36)}
-function today(){const d=new Date();return d.toISOString().slice(0,10)}
+function loadState(){try{const raw=JSON.parse(localStorage.getItem(KEY)||'{}');return {...structuredClone(defaults),...raw,shift:{...defaults.shift,...(raw.shift||{})}}}catch{return structuredClone(defaults)}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 function money(n){return '$'+Number(n||0).toFixed(2)}
-function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1500)}
-function closeModal(id){document.getElementById(id).classList.remove('show')}
-function totalNet(){return Object.values(state.earnings).reduce((a,b)=>a+(+b||0),0)}
-function totalSales(){return Object.values(state.inputs).reduce((sum,text)=>sum+parseSales(text).sales,0)}
-function parseSales(text=''){let total=0,sales=0,gross=0,biggest=0;for(const line of text.split('\n')){const vals=(line.match(/\$(\d+(?:\.\d{1,2})?)/g)||[]).map(v=>+v.slice(1));if(vals.length>=2){const net=vals[vals.length-1];total+=net;sales++;gross+=vals[0];biggest=Math.max(biggest,vals[0])}}return{total,sales,gross,biggest,avg:sales?gross/sales:0}}
-function setTodayIfEmpty(){if(!state.shift.date)state.shift.date=today()}
-function init(){setTodayIfEmpty();MODELS.forEach(n=>{state.earnings[n]??=0;state.notes[n]??='';state.inputs[n]??=''});renderModels();hydrateShift();bind();showPage(state.lastPage||'calc',false);renderMessages();updateAll();setInterval(updatePaceTimer,1000);saveState()}
-function bind(){document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('.subbtn').forEach(b=>b.onclick=()=>{currentMessageTab=b.dataset.model;state.messageTab=currentMessageTab;saveState();renderMessages()});['shift-time','shift-date','shift-custom','shift-fani'].forEach(id=>document.getElementById(id)?.addEventListener('input',saveShiftFields));document.getElementById('import-file')?.addEventListener('change',importBackup);document.addEventListener('keydown',shortcuts);document.getElementById('cmd-search')?.addEventListener('input',renderCommands);document.addEventListener('click',e=>{if(!e.target.closest('#command-palette')&&!e.target.closest('.bottom'))document.getElementById('command-palette')?.classList.remove('show')})}
-function renderModels(){const list=document.getElementById('model-list');list.innerHTML='';MODELS.forEach(name=>{const id=name.replace(/\s/g,'');const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="model-header"><span class="model-name">${name}</span><span class="val-text" id="val-${id}">${money(state.earnings[name])}</span></div><div class="grid2"><div><span class="label">Statement</span><textarea class="input mono" rows="5" id="input-${id}"></textarea></div><div><span class="label">Notes</span><textarea class="input" rows="5" id="notes-${id}"></textarea></div></div>`;list.appendChild(d);const inp=d.querySelector('#input-'+id),notes=d.querySelector('#notes-'+id);inp.value=state.inputs[name];notes.value=state.notes[name];inp.oninput=()=>{state.inputs[name]=inp.value;state.earnings[name]=parseSales(inp.value).total;d.querySelector('#val-'+id).textContent=money(state.earnings[name]);saveState();updateAll()};notes.oninput=()=>{state.notes[name]=notes.value;saveState()}})}
-function hydrateShift(){document.getElementById('shift-time').value=state.shift.time;document.getElementById('shift-date').value=state.shift.date;document.getElementById('shift-custom').value=state.shift.custom;document.getElementById('shift-fani').value=state.shift.fani}
-function saveShiftFields(){state.shift={time:document.getElementById('shift-time').value,date:document.getElementById('shift-date').value,custom:document.getElementById('shift-custom').value,fani:document.getElementById('shift-fani').value};saveState();updatePaceTimer()}
-function cycleShift(){let i=SHIFTS.indexOf(document.getElementById('shift-time').value);i=(i+1)%SHIFTS.length;document.getElementById('shift-time').value=SHIFTS[i];saveShiftFields()}
-function showPage(page,save=true){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+page)?.classList.add('active');const b=document.querySelector(`[data-page="${page}"]`);if(b)b.classList.add('active');const idx=['calc','report','messages'].indexOf(page);document.getElementById('nav-underline').style.transform=`translateX(${Math.max(0,idx)*100}%)`;if(save){state.lastPage=page;saveState()}if(page==='stats')renderStats();if(page==='history')renderHistory();if(page==='messages')renderMessages()}
-function updateAll(){document.getElementById('grand-total').textContent=money(totalNet());document.getElementById('sales-total').textContent=totalSales();updateGoal();updatePaceTimer();if(document.getElementById('page-stats').classList.contains('active'))renderStats()}
-function updateGoal(){const t=totalNet(),g=+state.goal||0,p=g?Math.min(100,t/g*100):0;document.getElementById('goal-label').textContent=money(g);document.getElementById('goal-progress').style.width=p+'%';document.getElementById('goal-progress-text').textContent=`${money(t)} / ${money(g)} (${p.toFixed(0)}%)`}
-function openGoalModal(){document.getElementById('goal-input').value=state.goal;document.getElementById('goal-modal').classList.add('show')}
-function saveGoal(){state.goal=Math.max(0,+document.getElementById('goal-input').value||0);saveState();closeModal('goal-modal');updateGoal()}
-function shiftBounds(){const m=(state.shift.time||'').match(/(\d{2}):(\d{2})\s*-\s*(\d{2}):(\d{2})/);if(!m)return null;const base=new Date((state.shift.date||today())+'T00:00:00');let s=new Date(base),e=new Date(base);s.setHours(+m[1],+m[2],0,0);e.setHours(+m[3],+m[4],0,0);if(e<=s)e.setDate(e.getDate()+1);return{s,e}}
-function updatePaceTimer(){const b=shiftBounds(),now=new Date();if(!b)return;let elapsed=Math.max(0,Math.min(now-b.s,b.e-b.s)),remaining=Math.max(0,b.e-now),hours=elapsed/36e5,pace=hours>0?totalNet()/hours:0,proj=pace*((b.e-b.s)/36e5);document.getElementById('pace-label').textContent=money(pace)+'/h';document.getElementById('projected-label').textContent=money(isFinite(proj)?proj:0);const sec=Math.floor(remaining/1000),hh=String(Math.floor(sec/3600)).padStart(2,'0'),mm=String(Math.floor(sec%3600/60)).padStart(2,'0'),ss=String(sec%60).padStart(2,'0');document.getElementById('timer-label').textContent=now<b.s?'Not started':remaining?`${hh}:${mm}:${ss}`:'Ended'}
-function buildReport(copy=false){let r='',grand=0;MODELS.forEach((n,i)=>{grand+=+state.earnings[n]||0;r+=`Model ${i+1}: ${n}\n`;if((state.notes[n]||'').trim())r+=state.notes[n].trim()+'\n';r+='---\n'});let fd=state.shift.date||'';if(fd){const[y,m,d]=fd.split('-');fd=`${d}/${m}/${y}`}r+=`Data: ${fd}\nTura: ${state.shift.time}\nTotal net: ${money(grand)}\nCustom / VC: ${state.shift.custom}\nFani prioritari:\n${state.shift.fani}`;document.getElementById('output-report').value=r;if(copy){navigator.clipboard?.writeText(r);toast('Report generated and copied')}return r}
-function finishShift(){saveShiftFields();const report=buildReport(false),entry={id:Date.now(),date:state.shift.date,time:state.shift.time,total:totalNet(),sales:totalSales(),earnings:{...state.earnings},report};state.history.unshift(entry);state.history=state.history.slice(0,200);saveState();renderHistory();toast('Shift saved')}
-function allMessages(tab=currentMessageTab){const out=[];for(const type of ['bundle','mass']){BASE_POOLS[tab][type].forEach(text=>out.push({id:uid(tab+type+text),text,type,tags:autoTags(text),custom:false}));state.customMessages.filter(x=>x.model===tab&&x.type===type).forEach(x=>out.push({...x,custom:true}))}return out}
-function autoTags(t){const s=t.toLowerCase(),tags=[];if(/morning|woke up|today/.test(s))tags.push('day');if(/night|bed|sleep/.test(s))tags.push('night');if(/dress/.test(s))tags.push('dress');if(/lingerie/.test(s))tags.push('lingerie');if(/\?/.test(s))tags.push('question');if(/cute|sweet|smile|pretty/.test(s))tags.push('soft');if(/naughty|horny|dirty|cock|tits|ass|clit|cum/.test(s))tags.push('explicit');return tags}
-function usedKey(id){return today()+':'+id}
-function renderMessages(){document.querySelectorAll('.subbtn').forEach(b=>b.classList.toggle('active',b.dataset.model===currentMessageTab));const themes={jessie:{accent:'#dc143c',soft:'#2b1119',text:'#ffd2dc'},curvy:{accent:'#b42346',soft:'#261018',text:'#f4c7d2'},jennie:{accent:'#8f1734',soft:'#211016',text:'#e9bcc7'}};const th=themes[currentMessageTab]||themes.jessie;const page=document.getElementById('page-messages');page.style.setProperty('--msg-accent',th.accent);page.style.setProperty('--msg-accent-soft',th.soft);page.style.setProperty('--msg-accent-text',th.text);const all=allMessages();const content=document.getElementById('message-content');content.innerHTML=['bundle','mass'].map(type=>renderMessageGroup(type,all.filter(m=>m.type===type))).join('')}
-function getMessageBatch(type,msgs){const key=currentMessageTab+':'+type,valid=new Map(msgs.map(m=>[m.id,m]));let ids=(state.messageBatches?.[key]||[]).filter(id=>valid.has(id));let recent=new Set(state.recentShown[key]||[]);if(ids.length<Math.min(3,msgs.length)){let avail=msgs.filter(m=>!ids.includes(m.id)&&!recent.has(m.id));if(avail.length<3-ids.length)avail=msgs.filter(m=>!ids.includes(m.id));avail.sort(()=>Math.random()-.5);ids=[...ids,...avail.slice(0,3-ids.length).map(m=>m.id)]}const picks=ids.map(id=>valid.get(id)).filter(Boolean).slice(0,3);state.messageBatches??={};state.messageBatches[key]=picks.map(x=>x.id);const oldRecent=state.recentShown[key]||[];state.recentShown[key]=[...oldRecent,...picks.map(x=>x.id).filter(id=>!oldRecent.includes(id))].slice(-Math.max(20,msgs.length));saveState();return picks}
-function renderMessageGroup(type,msgs){const title=type==='bundle'?'Bundles':'Mass Messages',picks=getMessageBatch(type,msgs);return `<div class="card"><div class="model-header"><span class="model-name">${title} <span class="muted">(${msgs.length})</span></span><button class="btn small" onclick="reroll('${type}')">Reroll 3</button></div><div id="${type}-list">${picks.length?picks.map(messageHtml).join(''):'<div class="empty">No matching messages</div>'}</div></div>`}
-function messageHtml(m){return `<div class="msg-item" data-id="${m.id}"><div class="msg-main"><span class="msg-text">${esc(m.text)}</span></div></div>`}
-function getMessage(id){return allMessages().find(x=>x.id===id)}
-function copyMessage(id){const m=getMessage(id);if(!m)return;navigator.clipboard?.writeText(m.text);state.copyCounts[id]=(state.copyCounts[id]||0)+1;state.used[usedKey(id)]=true;saveState();renderMessages();toast('Message copied')}
-function toggleFavorite(id){state.favorites[id]=!state.favorites[id];saveState();renderMessages()}
-function toggleUsed(id){const k=usedKey(id);state.used[k]=!state.used[k];saveState();renderMessages()}
-function resetUsedToday(){Object.keys(state.used).filter(k=>k.startsWith(today()+':')).forEach(k=>delete state.used[k]);state.recentShown={};state.messageBatches={};saveState();renderMessages();toast('Used messages reset')}
-function reroll(type){const pool=allMessages().filter(m=>m.type===type);const key=currentMessageTab+':'+type;let recent=new Set(state.recentShown[key]||[]),avail=pool.filter(m=>!recent.has(m.id));if(avail.length<3){recent=new Set();avail=[...pool]}avail.sort(()=>Math.random()-.5);const picks=avail.slice(0,3);state.messageBatches??={};state.messageBatches[key]=picks.map(x=>x.id);state.recentShown[key]=[...(state.recentShown[key]||[]),...picks.map(x=>x.id)].slice(-Math.max(20,pool.length));saveState();const el=document.getElementById(type+'-list');if(el)el.innerHTML=picks.length?picks.map(messageHtml).join(''):'<div class="empty">No messages</div>'}
-function openMessageEditor(){document.getElementById('editor-model').value=currentMessageTab;document.getElementById('editor-text').value='';document.getElementById('editor-tags').value='';document.getElementById('message-modal').classList.add('show')}
-function saveCustomMessage(){const text=document.getElementById('editor-text').value.trim();if(!text)return toast('Message is empty');const model=document.getElementById('editor-model').value,type=document.getElementById('editor-type').value,tags=document.getElementById('editor-tags').value.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);state.customMessages.push({id:'c'+Date.now().toString(36),text,model,type,tags});saveState();closeModal('message-modal');currentMessageTab=model;renderMessages();toast('Message saved')}
-function deleteCustom(id){state.customMessages=state.customMessages.filter(x=>x.id!==id);saveState();renderMessages()}
-function renderStats(){const hist=state.history,weekAgo=Date.now()-7*864e5,monthAgo=Date.now()-30*864e5;const week=hist.filter(x=>x.id>=weekAgo).reduce((s,x)=>s+x.total,0),month=hist.filter(x=>x.id>=monthAgo).reduce((s,x)=>s+x.total,0);let modelTotals={};MODELS.forEach(n=>modelTotals[n]=+state.earnings[n]||0);hist.slice(0,30).forEach(h=>MODELS.forEach(n=>modelTotals[n]+=+(h.earnings?.[n]||0)));const max=Math.max(1,...Object.values(modelTotals)),best=Object.entries(modelTotals).sort((a,b)=>b[1]-a[1])[0];document.getElementById('stats-content').innerHTML=`<div class="grid4"><div class="stat"><span class="label">Current shift</span><div class="num">${money(totalNet())}</div></div><div class="stat"><span class="label">7 days</span><div class="num">${money(week)}</div></div><div class="stat"><span class="label">30 days</span><div class="num">${money(month)}</div></div><div class="stat"><span class="label">Best model</span><div class="num" style="font-size:1rem">${best?.[0]||'-'}</div><span class="muted">${money(best?.[1]||0)}</span></div></div><div class="card" style="margin-top:16px"><span class="model-name">Earnings by model</span>${Object.entries(modelTotals).map(([n,v])=>`<div class="bar-row"><span>${n}</span><div class="bar"><div style="width:${v/max*100}%"></div></div><strong>${money(v)}</strong></div>`).join('')}</div><div class="card"><span class="model-name">Recent shifts</span>${hist.slice(0,10).length?hist.slice(0,10).map(h=>`<div class="bar-row"><span>${h.date}</span><div class="bar"><div style="width:${Math.min(100,h.total/Math.max(1,...hist.slice(0,10).map(x=>x.total))*100)}%"></div></div><strong>${money(h.total)}</strong></div>`).join(''):'<div class="empty">No saved shifts yet</div>'}</div>`}
-function renderHistory(){const el=document.getElementById('history-list');el.innerHTML=state.history.length?state.history.map(h=>`<div class="history-item"><strong>${h.date}</strong><span class="hide-mobile">${h.time}</span><span>${money(h.total)} · ${h.sales||0} sales</span><span><button class="btn small" onclick="viewHistory(${h.id})">View</button> <button class="btn small danger" onclick="deleteHistory(${h.id})">Delete</button></span></div>`).join(''):'<div class="empty">No saved shifts yet</div>'}
-function viewHistory(id){const h=state.history.find(x=>x.id===id);if(!h)return;document.getElementById('history-detail').value=h.report;document.getElementById('history-modal').classList.add('show')}
-function deleteHistory(id){state.history=state.history.filter(x=>x.id!==id);saveState();renderHistory();renderStats()}
-function exportBackup(){const blob=new Blob([JSON.stringify({version:3,exportedAt:new Date().toISOString(),state},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`jucarie-t1-backup-${today()}.json`;a.click();URL.revokeObjectURL(a.href)}
-function importBackup(ev){const f=ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);state={...structuredClone(defaultState),...(j.state||j)};saveState();location.reload()}catch(e){toast('Invalid backup file')}};r.readAsText(f);ev.target.value=''}
+function today(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
 function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-const commands=[['Go to Calculators',()=>showPage('calc')],['Go to Shift Report',()=>showPage('report')],['Go to Messages',()=>showPage('messages')],['Go to Statistics',()=>showPage('stats')],['Go to History',()=>showPage('history')],['Add message',openMessageEditor],['Set daily goal',openGoalModal],['Generate report',()=>{showPage('report');buildReport(true)}],['Export backup',exportBackup]];
-function toggleCommandPalette(){const e=document.getElementById('command-palette');e.classList.toggle('show');if(e.classList.contains('show')){document.getElementById('cmd-search').value='';renderCommands();setTimeout(()=>document.getElementById('cmd-search').focus(),0)}}
-function renderCommands(){const q=document.getElementById('cmd-search').value.toLowerCase();document.getElementById('cmd-results').innerHTML=commands.filter(c=>c[0].toLowerCase().includes(q)).map((c,i)=>`<div class="cmd-item" onclick="runCommand('${esc(c[0])}')">${esc(c[0])}</div>`).join('')}
-function runCommand(name){const c=commands.find(x=>x[0]===name);document.getElementById('command-palette').classList.remove('show');c?.[1]()}
-function shortcuts(e){if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.altKey&&['1','2','3','4','5'].includes(e.key)){e.preventDefault();showPage(['calc','report','messages','stats','history'][+e.key-1]);return}if(e.key.toLowerCase()==='r'&&document.getElementById('page-messages').classList.contains('active')){reroll('mass');reroll('bundle')}}
-window.onload=init;
-</script></body></html>
+function uid(text){let h=2166136261;for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,16777619)}return 'm'+(h>>>0).toString(36)}
+function parseTotal(text=''){let total=0;for(const line of text.split('\n')){const vals=(line.match(/\$(\d+(?:\.\d{1,2})?)/g)||[]).map(v=>+v.slice(1));if(vals.length>=2)total+=vals[vals.length-1]}return total}
+function totalNet(){return MODELS.reduce((s,n)=>s+(+state.earnings[n]||0),0)}
+function toast(msg){const e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1400)}
+function init(){if(!state.shift.date)state.shift.date=today();MODELS.forEach(n=>{state.earnings[n]??=0;state.notes[n]??='';state.inputs[n]??=''});renderModels();hydrateShift();bind();showPage(['calc','report','messages'].includes(state.lastPage)?state.lastPage:'calc');renderMessages();updateTotals();save()}
+function bind(){document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));document.querySelectorAll('.model-tabs button').forEach(b=>b.addEventListener('click',()=>{currentMessageTab=b.dataset.model;state.messageTab=currentMessageTab;save();renderMessages()}));['shift-time','shift-date','shift-custom','shift-fani'].forEach(id=>document.getElementById(id).addEventListener('input',saveShift))}
+function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));state.lastPage=page;save()}
+function renderModels(){const box=document.getElementById('model-list');box.innerHTML='';MODELS.forEach(name=>{const id=name.replace(/\s/g,'');const card=document.createElement('article');card.className='model-card';card.innerHTML=`<div class="model-top"><strong>${esc(name)}</strong><span class="model-total" id="val-${id}">${money(state.earnings[name])}</span></div><div class="model-body"><div class="field"><label>Statement</label><textarea id="input-${id}" class="input mono" rows="5"></textarea></div><div class="field"><label>Notes</label><textarea id="notes-${id}" class="input" rows="5"></textarea></div></div>`;box.appendChild(card);const inp=card.querySelector('#input-'+id),notes=card.querySelector('#notes-'+id);inp.value=state.inputs[name];notes.value=state.notes[name];inp.addEventListener('input',()=>{state.inputs[name]=inp.value;state.earnings[name]=parseTotal(inp.value);card.querySelector('#val-'+id).textContent=money(state.earnings[name]);save();updateTotals()});notes.addEventListener('input',()=>{state.notes[name]=notes.value;save()})})}
+function updateTotals(){const total=totalNet();document.getElementById('grand-total').textContent=money(total);document.getElementById('mobile-total').textContent=money(total);const goal=Number(state.goal||0),pct=goal?Math.min(100,total/goal*100):0;document.getElementById('goal-label').textContent=money(goal)+' goal';document.getElementById('goal-progress-text').textContent=`${money(total)} of ${money(goal)} · ${Math.round(pct)}%`;document.getElementById('goal-progress').style.width=pct+'%'}
+function openGoal(){document.getElementById('goal-input').value=state.goal||0;document.getElementById('goal-modal').classList.add('show')}
+function closeGoal(){document.getElementById('goal-modal').classList.remove('show')}
+function saveGoal(){state.goal=Math.max(0,Number(document.getElementById('goal-input').value)||0);save();updateTotals();closeGoal();toast('Goal saved')}
+function hydrateShift(){document.getElementById('shift-time').value=state.shift.time||SHIFTS[0];document.getElementById('shift-date').value=state.shift.date||today();document.getElementById('shift-custom').value=state.shift.custom||'';document.getElementById('shift-fani').value=state.shift.fani||''}
+function saveShift(){state.shift={time:document.getElementById('shift-time').value,date:document.getElementById('shift-date').value,custom:document.getElementById('shift-custom').value,fani:document.getElementById('shift-fani').value};save()}
+function cycleShift(){const now=document.getElementById('shift-time').value;const i=SHIFTS.indexOf(now);document.getElementById('shift-time').value=SHIFTS[(i+1+SHIFTS.length)%SHIFTS.length];saveShift()}
+function buildReport(){saveShift();let r='',grand=0;MODELS.forEach((n,i)=>{grand+=+state.earnings[n]||0;r+=`Model ${i+1}: ${n}\n`;if((state.notes[n]||'').trim())r+=state.notes[n].trim()+'\n';r+='---\n'});let date=state.shift.date||'';if(date){const[y,m,d]=date.split('-');date=`${d}/${m}/${y}`}r+=`Data: ${date}\nTura: ${state.shift.time}\nTotal net: ${money(grand)}\nCustom / VC: ${state.shift.custom}\nFani prioritari:\n${state.shift.fani}`;document.getElementById('output-report').value=r;toast('Report generated')}
+function messagesFor(type){return (BASE_POOLS[currentMessageTab]?.[type]||[]).map(text=>({id:uid(currentMessageTab+type+text),text}))}
+function renderMessages(){const themes={jessie:{model:'#e11d48',soft:'#2b0c16',text:'#ffd7e0'},curvy:{model:'#b91c3c',soft:'#250b13',text:'#f6c7d2'},jennie:{model:'#881337',soft:'#210a13',text:'#edc2cf'}};const th=themes[currentMessageTab]||themes.jessie;const page=document.getElementById('page-messages');page.style.setProperty('--model',th.model);page.style.setProperty('--model-soft',th.soft);page.style.setProperty('--model-text',th.text);document.querySelectorAll('.model-tabs button').forEach(b=>b.classList.toggle('active',b.dataset.model===currentMessageTab));document.getElementById('message-content').innerHTML=['bundle','mass'].map(type=>renderGroup(type)).join('')}
+function getBatch(type,msgs){const key=currentMessageTab+':'+type;state.messageBatches??={};state.recentShown??={};const map=new Map(msgs.map(m=>[m.id,m]));let ids=(state.messageBatches[key]||[]).filter(id=>map.has(id));const need=Math.min(3,msgs.length);if(ids.length<need){let recent=new Set(state.recentShown[key]||[]);let avail=msgs.filter(m=>!ids.includes(m.id)&&!recent.has(m.id));if(avail.length<need-ids.length)avail=msgs.filter(m=>!ids.includes(m.id));avail.sort(()=>Math.random()-.5);ids=ids.concat(avail.slice(0,need-ids.length).map(m=>m.id))}const picks=ids.map(id=>map.get(id)).filter(Boolean).slice(0,need);state.messageBatches[key]=picks.map(m=>m.id);save();return picks}
+function renderGroup(type){const msgs=messagesFor(type),picks=getBatch(type,msgs),title=type==='bundle'?'Bundles':'Mass Messages';return `<section class="message-column"><div class="message-title"><div><strong>${title}</strong><span class="count">${msgs.length}</span></div><button class="btn small" onclick="reroll('${type}')">Reroll 3</button></div><div id="${type}-list">${picks.map(messageCard).join('')||'<div class="subtitle">No messages yet.</div>'}</div></section>`}
+function messageCard(m){return `<article class="message-card"><p>${esc(m.text)}</p></article>`}
+function reroll(type){const msgs=messagesFor(type),key=currentMessageTab+':'+type;let recent=new Set(state.recentShown[key]||[]),avail=msgs.filter(m=>!recent.has(m.id));if(avail.length<Math.min(3,msgs.length)){recent=new Set();state.recentShown[key]=[];avail=[...msgs]}avail.sort(()=>Math.random()-.5);const picks=avail.slice(0,3);state.messageBatches[key]=picks.map(m=>m.id);state.recentShown[key]=[...(state.recentShown[key]||[]),...picks.map(m=>m.id)].slice(-Math.max(20,msgs.length));save();document.getElementById(type+'-list').innerHTML=picks.map(messageCard).join('')}
+window.addEventListener('load',init);
+
+</script>
+</body>
+</html>
