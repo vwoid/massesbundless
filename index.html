@@ -397,6 +397,79 @@ textarea.input{resize:vertical;min-height:100px} .mono{font-family:'IBM Plex Mon
 }
 </style>
 
+
+<style>
+.calculator-main{
+  min-width:0;
+}
+.calculator-actions{
+  display:flex;
+  justify-content:flex-end;
+  margin-bottom:10px;
+}
+.clear-calculator-btn{
+  background:#12090c !important;
+  border-color:#3b1821 !important;
+  color:#d8cdd0 !important;
+  padding:8px 12px !important;
+  font-size:.7rem !important;
+}
+.clear-calculator-btn:hover{
+  background:#211014 !important;
+  border-color:#dc143c !important;
+  color:#fff !important;
+}
+</style>
+
+
+<style>
+.calculator-main.clearing{
+  pointer-events:none;
+}
+.model-card.clear-out{
+  animation:calculatorClearOut .38s ease forwards;
+  animation-delay:var(--clear-delay,0ms);
+}
+.model-card.clear-in{
+  animation:calculatorClearIn .5s cubic-bezier(.2,.75,.2,1) both;
+  animation-delay:var(--clear-delay,0ms);
+}
+@keyframes calculatorClearOut{
+  0%{
+    opacity:1;
+    transform:translateX(0) scale(1);
+    filter:blur(0);
+  }
+  55%{
+    opacity:.45;
+    transform:translateX(10px) scale(.995);
+  }
+  100%{
+    opacity:0;
+    transform:translateX(24px) scale(.985);
+    filter:blur(3px);
+  }
+}
+@keyframes calculatorClearIn{
+  0%{
+    opacity:0;
+    transform:translateY(8px) scale(.99);
+    filter:blur(2px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .model-card.clear-out,
+  .model-card.clear-in{
+    animation:none !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="os">
@@ -423,7 +496,12 @@ textarea.input{resize:vertical;min-height:100px} .mono{font-family:'IBM Plex Mon
           <div class="progress"><div id="goal-progress"></div></div>
           <button class="btn small" onclick="openGoal()">Change target</button>
         </aside>
-        <div id="model-list" class="models"></div>
+        <div class="calculator-main">
+  <div class="calculator-actions">
+    <button class="btn small clear-calculator-btn" onclick="clearCalculator()">Clear Calculator</button>
+  </div>
+  <div id="model-list" class="models"></div>
+</div>
       </div>
     </section>
 
@@ -724,6 +802,44 @@ function copyReport(){
   }else{
     fallbackCopy(text);
   }
+}
+
+
+function clearCalculator(){
+  if(!confirm('Clear all calculator statements and notes?')) return;
+
+  const main=document.querySelector('.calculator-main');
+  const cards=[...document.querySelectorAll('.model-card')];
+  main?.classList.add('clearing');
+
+  cards.forEach((card,i)=>{
+    card.style.setProperty('--clear-delay',`${i*45}ms`);
+    card.classList.add('clear-out');
+  });
+
+  setTimeout(()=>{
+    MODELS.forEach(name=>{
+      state.inputs[name]='';
+      state.notes[name]='';
+      state.earnings[name]=0;
+    });
+    save();
+    renderModels();
+    updateTotals();
+
+    const newCards=[...document.querySelectorAll('.model-card')];
+    newCards.forEach((card,i)=>{
+      card.style.setProperty('--clear-delay',`${i*45}ms`);
+      card.classList.add('clear-in');
+    });
+
+    main?.classList.remove('clearing');
+    toast('Calculator cleared');
+
+    setTimeout(()=>{
+      newCards.forEach(card=>card.classList.remove('clear-in'));
+    },700);
+  },420);
 }
 
 window.addEventListener('load',init);
