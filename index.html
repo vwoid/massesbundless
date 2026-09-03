@@ -375,6 +375,28 @@ textarea.input{resize:vertical;min-height:100px} .mono{font-family:'IBM Plex Mon
 }
 </style>
 
+
+<style>
+#page-report .paper-head{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+}
+#page-report .copy-report-btn{
+  background:#160d10 !important;
+  border-color:#3a1b23 !important;
+  color:#f5f2f3 !important;
+  padding:7px 11px !important;
+  font-size:.7rem !important;
+}
+#page-report .copy-report-btn:hover{
+  background:#241015 !important;
+  border-color:#dc143c !important;
+  color:#fff !important;
+}
+</style>
+
 </head>
 <body>
 <div class="os">
@@ -418,7 +440,13 @@ textarea.input{resize:vertical;min-height:100px} .mono{font-family:'IBM Plex Mon
             <div class="field"><label>Priority fans</label><textarea id="shift-fani" class="input" rows="9"></textarea></div>
             <div class="generate-row"><button class="btn primary" onclick="buildReport()">Generate Final Report</button></div>
           </div>
-          <div class="report-paper"><div class="paper-head">OUTPUT / FINAL_REPORT.TXT</div><textarea id="output-report" readonly placeholder="Generated report appears here..."></textarea></div>
+          <div class="report-paper">
+  <div class="paper-head">
+    <span>OUTPUT / FINAL_REPORT.TXT</span>
+    <button class="btn small copy-report-btn" onclick="copyReport()">Copy Report</button>
+  </div>
+  <textarea id="output-report" readonly placeholder="Generated report appears here..."></textarea>
+</div>
         </div>
       </div>
     </section>
@@ -635,6 +663,7 @@ const SHIFTS=["07:00 - 15:00","15:00 - 23:00","23:00 - 07:00"];
 
 
 
+
 const BASE_POOLS={jessie:{bundle:jessieBundlePool,mass:jessieMassPool},curvy:{bundle:curvyBundlePool,mass:curvyMassPool},jennie:{bundle:jennieBundlePool,mass:jennieMassPool}};
 const KEY='jucarieT1StateV3';
 const defaults={earnings:{},notes:{},inputs:{},shift:{time:SHIFTS[0],date:'',custom:'',fani:''},goal:200,recentShown:{},messageBatches:{},lastPage:'calc',messageTab:'jessie'};
@@ -686,6 +715,17 @@ function fallbackCopy(text){
   ta.remove();
 }
 function reroll(type){const msgs=messagesFor(type),key=currentMessageTab+':'+type;let recent=new Set(state.recentShown[key]||[]),avail=msgs.filter(m=>!recent.has(m.id));if(avail.length<Math.min(3,msgs.length)){recent=new Set();state.recentShown[key]=[];avail=[...msgs]}avail.sort(()=>Math.random()-.5);const picks=avail.slice(0,3);state.messageBatches[key]=picks.map(m=>m.id);state.recentShown[key]=[...(state.recentShown[key]||[]),...picks.map(m=>m.id)].slice(-Math.max(20,msgs.length));save();document.getElementById(type+'-list').innerHTML=picks.map(messageCard).join('')}
+
+function copyReport(){
+  const text=document.getElementById('output-report')?.value||'';
+  if(!text){toast('Generate report first');return;}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast('Report copied')).catch(()=>fallbackCopy(text));
+  }else{
+    fallbackCopy(text);
+  }
+}
+
 window.addEventListener('load',init);
 
 </script>
