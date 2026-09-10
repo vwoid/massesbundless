@@ -598,6 +598,7 @@ const SHIFTS=["07:00 - 15:00","15:00 - 23:00","23:00 - 07:00"];
     "My lingerie wasn't exactly staying where I put it 😭🤭 and instead of fixing it every time, I decided to just take it off and let me boobs free but tits way better this way don't you think so? 😈",
     "Turns out I get a little creative when nobody is around 🤭 I tried positions I normally wouldn't and ended up with some very interesting views for you am I right? 😈",
     "Leaving me alone in lingerie for too long clearly has consequences 🤭 I started playing with myself around, and I got so horny I just did some pics so you'll see the mood I got in 😏🤭",
+	"My hair has a complete mind of its own today, and honestly, the bigger the curls, the more naughty I feel. I was playing around in front of the mirror and things got a little out of hand 🤭🤭",
     "I put on this tiny little loungewear set to relax, but the fabric rubbing against my nipples was driving me crazy. I ended up sliding my hand straight down my shorts while sitting on the couch, and well I need you to continue this story 😏😏",
     "The house is completely quiet today and I was daydreaming about you that I couldn't keep my hands to myself. I ended up lying across the bed, arching my back, and started projecting your fingers inside of me 😈🥵🥵",
     "This has such a fun vibe to it. 🤭 I don't want to give too much away, so I'll let you see the rest for yourself. I'm curious what ends up catching your attention first.",
@@ -755,9 +756,22 @@ function uid(text){let h=2166136261;for(let i=0;i<text.length;i++){h^=text.charC
 function parseTotal(text=''){let total=0;for(const line of text.split('\n')){const vals=(line.match(/\$(\d+(?:\.\d{1,2})?)/g)||[]).map(v=>+v.slice(1));if(vals.length>=2)total+=vals[vals.length-1]}return total}
 function totalNet(){return MODELS.reduce((s,n)=>s+(+state.earnings[n]||0),0)}
 function toast(msg){const e=document.getElementById('toast');e.textContent=msg;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1400)}
-function init(){if(!state.shift.date)state.shift.date=today();MODELS.forEach(n=>{state.earnings[n]??=0;state.notes[n]??='';state.inputs[n]??=''});renderModels();hydrateShift();bind();showPage(['calc','report','messages'].includes(state.lastPage)?state.lastPage:'calc');renderMessages();updateTotals();save()}
+function init(){state.shift.date=today();MODELS.forEach(n=>{state.earnings[n]??=0;state.notes[n]??='';state.inputs[n]??=''});renderModels();hydrateShift();bind();showPage(['calc','report','messages'].includes(state.lastPage)?state.lastPage:'calc');renderMessages();updateTotals();save()}
 function bind(){document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));document.querySelectorAll('.model-tabs button').forEach(b=>b.addEventListener('click',()=>{currentMessageTab=b.dataset.model;state.messageTab=currentMessageTab;save();renderMessages()}));['shift-time','shift-date','shift-custom','shift-fani'].forEach(id=>document.getElementById(id).addEventListener('input',saveShift))}
-function showPage(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));state.lastPage=page;save()}
+function showPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+page));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+  if(page==='report'){
+    const current=today();
+    const dateInput=document.getElementById('shift-date');
+    if(dateInput){
+      dateInput.value=current;
+      state.shift.date=current;
+    }
+  }
+  state.lastPage=page;
+  save();
+}
 function renderModels(){const box=document.getElementById('model-list');box.innerHTML='';MODELS.forEach(name=>{const id=name.replace(/\s/g,'');const card=document.createElement('article');card.className='model-card';card.innerHTML=`<div class="model-top"><strong>${esc(name)}</strong><span class="model-total" id="val-${id}">${money(state.earnings[name])}</span></div><div class="model-body"><div class="field"><label>Statement</label><textarea id="input-${id}" class="input mono" rows="5"></textarea></div><div class="field"><label>Notes</label><textarea id="notes-${id}" class="input" rows="5"></textarea></div></div>`;box.appendChild(card);const inp=card.querySelector('#input-'+id),notes=card.querySelector('#notes-'+id);inp.value=state.inputs[name];notes.value=state.notes[name];inp.addEventListener('input',()=>{state.inputs[name]=inp.value;state.earnings[name]=parseTotal(inp.value);card.querySelector('#val-'+id).textContent=money(state.earnings[name]);save();updateTotals()});notes.addEventListener('input',()=>{state.notes[name]=notes.value;save()})})}
 function updateTotals(){const total=totalNet();document.getElementById('grand-total').textContent=money(total);document.getElementById('mobile-total').textContent=money(total);const goal=Number(state.goal||0),pct=goal?Math.min(100,total/goal*100):0;document.getElementById('goal-label').textContent=money(goal)+' goal';document.getElementById('goal-progress-text').textContent=`${money(total)} of ${money(goal)} · ${Math.round(pct)}%`;document.getElementById('goal-progress').style.width=pct+'%'}
 function openGoal(){document.getElementById('goal-input').value=state.goal||0;document.getElementById('goal-modal').classList.add('show')}
